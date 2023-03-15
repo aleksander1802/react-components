@@ -19,6 +19,6 @@
     "noFallthroughCasesInSwitch": true,
     "baseUrl": "./src"
   },
-  "include": ["./src/**/*", "styled.d.ts"],
+  "include": ["./src/**/*", "styled.d.ts", "src/models"],
   "references": [{ "path": "./tsconfig.node.json" }]
 }
