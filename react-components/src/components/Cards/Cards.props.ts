@@ -1,4 +1,4 @@
-export interface ICards {
+export interface CardsProps {
   _id: string;
   index: number;
   isActive: boolean;

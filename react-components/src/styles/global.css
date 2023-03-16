@@ -7,6 +7,10 @@
   font-family: var(--font-family);
 }
 
+html {
+  position: relative;
+}
+
 :root {
   --black: #3b434e;
   --gray-light: #ebebeb;
@@ -20,4 +24,16 @@
   --green: #007b48;
   --green-light: #c8f8e4;
   --font-family: 'Noto Sans Display', sans-serif;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--red-light);
+}
+
+.active {
+  text-decoration: underline;
 }

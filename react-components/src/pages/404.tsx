@@ -1,9 +1,10 @@
 import { Htag } from '../components/Htag/Htag';
+import styles from './404.module.css';
 
 export function Error404(): JSX.Element {
   return (
     <>
-      <Htag tag="h1">Ошибка 404</Htag>
+      <div className={styles.error}>Error 404</div>
     </>
   );
 }
