@@ -1,5 +1,4 @@
 import { InputProps } from './Input.props';
-import { Component } from 'react';
 import cn from 'classnames';
 
 import styles from './Input.module.css';

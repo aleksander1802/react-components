@@ -1,5 +1,3 @@
-import React from 'react';
-import { Htag } from '../components/Htag/Htag';
 import styles from './About.module.css';
 
 const About = () => {

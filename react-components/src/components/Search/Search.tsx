@@ -8,26 +8,17 @@ import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 export class Search extends Component<SearchProps> {
   state = {
-    search: '',
+    search: localStorage.getItem('data') || '',
   };
 
   setSearch = (data: string) => {
     this.setState({
       search: data,
     });
-
-    localStorage.setItem('search', data);
   };
 
-  componentDidMount(): void {
-    const story = localStorage.getItem('search');
-    this.setState({
-      search: story,
-    });
-  }
-
   componentWillUnmount(): void {
-    localStorage.getItem('search');
+    localStorage.setItem('data', this.state.search);
   }
 
   handleSubmit(e: React.FormEvent<HTMLFormElement>) {

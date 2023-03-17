@@ -1,7 +1,3 @@
-import { cards } from './api/cards';
-import { Header } from './layout/Header/Header';
-import cn from 'classnames';
-import styles from './layout/Layout.module.css';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Layout } from './layout/Layout';
 import { Error404 } from './pages/404';

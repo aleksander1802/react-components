@@ -1,6 +1,6 @@
-import { ICards } from '../models/cards';
+import { CardsProps } from '../components/Cards/Cards.props';
 
-export const cards: ICards[] = [
+export const cards: CardsProps[] = [
   {
     _id: '6410a8f55c42af01785bd3a1',
     index: 0,
