@@ -4,7 +4,8 @@ import About from './About';
 
 describe('About page render', () => {
   test('About page rendered', () => {
-    const wrapper = render(<About />);
-    expect(wrapper).toBeTruthy();
+    const about = render(<About />);
+    expect(about).toBeTruthy();
+    expect(about).toBeDefined();
   });
 });

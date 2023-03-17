@@ -4,7 +4,8 @@ import { Error404 } from './404';
 
 describe('Error page render', () => {
   test('Error page rendered', () => {
-    const wrapper = render(<Error404 />);
-    expect(wrapper).toBeTruthy();
+    const error = render(<Error404 />);
+    expect(error).toBeTruthy();
+    expect(error).toBeDefined();
   });
 });
