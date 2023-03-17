@@ -12,7 +12,6 @@ export class Header extends Component<HeaderProps> {
   };
 
   componentDidMount() {
-    console.log(this.state.title);
     this.titleHandle(window.location.pathname);
   }
 

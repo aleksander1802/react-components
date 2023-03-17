@@ -1,18 +1,79 @@
 .cards {
-    margin: 30px auto 30px;
+  margin: 30px auto 30px;
 }
 
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(4, minmax(auto, 1200px));
+  grid-template-columns: repeat(4, minmax(283px, 1200px));
   grid-auto-rows: minmax(350px, 500px);
   min-height: 100vh;
   gap: 40px 30px;
-  list-style-type: none;  
+  list-style-type: none;
   justify-items: center;
 }
 
 .card {
-
+  display: grid;
+  grid-template-rows: 300px repeat(11, auto);
+  grid-template-columns: 1fr;
+  row-gap: 5px;
+  align-items: center;
+  background: #00000011;
+  padding: 10px;
+  width: 100%;
+  font-size: 15px;
+  cursor: default;
+  border: 1px solid var(--primary);
+  transition: all 0.5s;
 }
 
+.card img {
+  filter: grayscale(100%);
+  transition: all 0.5s;
+}
+
+.card:hover img {
+  filter: grayscale(0%);
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0px 20px 1px crimson;
+}
+
+.image {
+  justify-self: center;
+}
+span {
+  font-weight: bold;
+}
+
+.choice {
+  font-weight: bold;
+}
+
+.active {
+  color: var(--green);
+}
+
+.notactive {
+  color: crimson;
+}
+
+.balance {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--primary);
+}
+
+.green {
+  color: rgb(26, 146, 42);
+}
+
+.blue {
+  color: rgb(0, 140, 255);  
+}
+
+.brown {
+  color: brown;
+}
