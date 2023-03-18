@@ -1,4 +1,4 @@
-import { describe, expect, test } from 'vitest';
+import { describe, expect, test, vi } from 'vitest';
 import { render, screen, within } from '@testing-library/react';
 import { Cards } from './Cards';
 import { CardsProps } from './Cards.props';
@@ -41,4 +41,33 @@ test('should check that item values according to their types', () => {
     expect(item.address).toBeTypeOf('string');
     expect(item.registered).toBeTypeOf('string');
   });
+});
+
+const array: CardsProps[] = cards;
+
+const cardsItems = {
+  renderItems(array: CardsProps[]): JSX.Element {
+    const items = array.map((item) => {
+      return <li key={item._id}></li>;
+    });
+    return <ul>{items}</ul>;
+  },
+};
+
+test('called function renderItems', () => {
+  const buySpy = vi.spyOn(cardsItems, 'renderItems');
+
+  expect(buySpy).not.toHaveBeenCalled();
+
+  cardsItems.renderItems(array);
+
+  expect(buySpy).toHaveBeenCalled();
+});
+
+test('called function renderItems with json array', () => {
+  const buySpy = vi.spyOn(cardsItems, 'renderItems');
+
+  cardsItems.renderItems(cards);
+
+  expect(buySpy).toHaveBeenCalledWith(cards);
 });

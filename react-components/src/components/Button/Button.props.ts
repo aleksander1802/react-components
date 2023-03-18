@@ -5,7 +5,7 @@ export interface ButtonProps
     React.ButtonHTMLAttributes<HTMLButtonElement>,
     'onAnimationStart' | 'onDragStart' | 'onDragEnd' | 'onDrag' | 'ref'
   > {
-  children: ReactNode;
+  children?: ReactNode;
   appearance: 'primary' | 'ghost';
   arrow?: 'right' | 'down' | 'none';
 }

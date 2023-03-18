@@ -64,7 +64,6 @@ export class Cards extends Component {
           <div>
             Phone: <span>{item.phone}</span>
           </div>
-          <div></div>
         </li>
       );
     });

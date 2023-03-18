@@ -38,7 +38,7 @@ export class Search extends Component<SearchProps> {
           value={this.state.search}
           onChange={(e) => this.setSearch(e.target.value)}
         />
-        <Button appearance="primary" className={styles.button} aria-label="Искать по сайту">
+        <Button appearance="primary" className={styles.button} aria-label="Search by site">
           <img alt="logo" src={GlassIcon} />
         </Button>
       </form>

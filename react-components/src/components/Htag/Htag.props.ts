@@ -1,3 +1,3 @@
 export interface HtagProps {
-  tag: 'h1' | 'h2' | 'h3';
+  tag: 'h1' | 'h2' | 'h3' | undefined;
 }
