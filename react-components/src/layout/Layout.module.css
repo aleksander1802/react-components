@@ -1,0 +1,11 @@
+.container {
+  margin: 0 auto;
+  width: 1300px;
+  margin-top: 111px;
+}
+
+.header {
+  width: 100%;
+  position: fixed;
+  z-index: 10;
+}
