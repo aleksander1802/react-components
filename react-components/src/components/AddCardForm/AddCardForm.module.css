@@ -1,0 +1,47 @@
+.input {
+  padding: 7px 15px;
+
+  color: var(--black);
+  border: none;
+  outline-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+
+  font-size: 16px;
+  line-height: 22px;
+  font-family: var(--font-family);
+}
+
+.input::placeholder {
+  color: var(--gray);
+}
+
+.formWrapper {
+  position: relative;
+  background: rgba(0, 0, 0, 0.05);
+}
+
+.form {
+  display: grid;
+  justify-items: center;
+  grid-auto-rows: minmax(50px, 100px);
+}
+
+.age input[type='number']::-webkit-outer-spin-button,
+.age input[type='number']::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+}
+
+.age input[type='number'],
+.age input[type='number']:hover,
+.age input[type='number']:focus {
+  appearance: none;
+  -moz-appearance: textfield;
+}
+
+.button {
+  max-height: 50px;
+  width: 170px;
+  font-size: 20px;
+}

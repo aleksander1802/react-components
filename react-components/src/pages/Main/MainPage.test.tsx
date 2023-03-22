@@ -1,7 +1,7 @@
 import { describe, expect, test } from 'vitest';
 import { render } from '@testing-library/react';
-import { Cards } from '../components/Cards/Cards';
-import { Search } from '../components/Search/Search';
+import { Cards } from '../../components/Cards/Cards';
+import { Search } from '../../components/Search/Search';
 import MainPage from './MainPage';
 
 describe('should render Cards and Search components', () => {

@@ -23,6 +23,11 @@
   grid-column: 3;
 }
 
+.header a:nth-child(3) {
+  grid-column: 2;
+  grid-row: 1;
+}
+
 .header span {
   color: var(--white);
   grid-row: 2;

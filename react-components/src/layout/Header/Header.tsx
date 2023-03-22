@@ -25,6 +25,10 @@ export class Header extends Component<HeaderProps> {
         return this.setState({
           title: 'About Us',
         });
+      case '/form':
+        return this.setState({
+          title: 'Create card',
+        });
       default:
         return '';
     }
@@ -39,6 +43,7 @@ export class Header extends Component<HeaderProps> {
       >
         <NavLink to="/">Main</NavLink>
         <NavLink to="/about">About</NavLink>
+        <NavLink to="/form">Create card</NavLink>
         <span>{this.state.title}</span>
       </header>
     );
