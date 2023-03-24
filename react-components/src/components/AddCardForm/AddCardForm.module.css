@@ -35,7 +35,7 @@
 }
 
 .wrapper {
-  grid-template-columns: 370px;
+  grid-template-columns: 450px;
 }
 
 .item {
@@ -44,6 +44,7 @@
   grid-template-columns: 1fr 1fr;
   justify-items: end;
   align-items: center;
+  position: relative;
 }
 
 .age input[type='number']::-webkit-outer-spin-button,
@@ -71,6 +72,9 @@
 .sex span {
   font-weight: normal;
 }
+.errorMessengers {
+  border: 1px solid var(--crimson);
+}
 
 .options {
   display: grid;
@@ -79,6 +83,7 @@
   justify-items: end;
   column-gap: 15px;
   align-items: center;
+  position: relative;
 }
 
 .option {
@@ -87,7 +92,7 @@
 }
 
 .select {
-  padding: 7px 15px;  
+  padding: 7px 15px;
   border: none;
   outline-color: var(--primary);
   background: var(--white);
@@ -107,4 +112,42 @@
   max-height: 50px;
   width: 170px;
   font-size: 20px;
+}
+
+.errorfile {
+  left: 485px;
+  background-color: #fff;
+}
+
+.error input,
+.errorEye {
+  outline-color: var(--crimson);
+  border: 1px solid var(--crimson);
+  position: relative;
+}
+
+.errorname::after,
+.errorDate::after,
+.errorAge::after {
+  position: absolute;
+  left: 250px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--crimson);
+  min-width: 400px;
+  height: auto;
+  font-size: 17px;
+}
+
+.errorname::after {
+  content: 'The first letter must be uppercase. Must be at least 4 characters in length. Spaces are not allowed.';
+  font-size: 15px;
+}
+
+.errorDate::after {
+  content: 'Required field. Enter the date.';
+}
+
+.errorAge::after {
+  content: 'Required field. Enter correct value.';
 }
