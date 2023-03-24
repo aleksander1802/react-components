@@ -112,29 +112,41 @@ export class AddCardForm extends Component<FormProps> {
   };
 
   validationFormFields = () => {
-    this.setState({
-      validation: {
-        errorName: this.nameInputValidation(this.nameInputRef),
-        errorDate: this.dateInputValidation(this.dateRef),
-        errorEye: this.eyeInputValidation(this.selectEyeColorRef),
-        errorAge: this.ageInputValidation(this.ageInputRef),
-        errorMessengers: this.messengersInputValidation(this.messengersRefs),
-        errorGender: this.genderInputValidation(this.genderRefs),
-        errorFile: this.imageInputValidation(this.imageRef),
+    this.setState(
+      {
+        validation: {
+          errorName: this.nameInputValidation(this.nameInputRef),
+          errorDate: this.dateInputValidation(this.dateRef),
+          errorEye: this.eyeInputValidation(this.selectEyeColorRef),
+          errorAge: this.ageInputValidation(this.ageInputRef),
+          errorMessengers: this.messengersInputValidation(this.messengersRefs),
+          errorGender: this.genderInputValidation(this.genderRefs),
+          errorFile: this.imageInputValidation(this.imageRef),
+        },
       },
-    });
+      () => {
+        const falseValues = Object.values(this.state.validation);
+        if (falseValues.every((item) => !item)) {
+          this.resetForm.current?.reset();
+        }
+      }
+    );
   };
 
   handleSubmit = (e: FormEvent): void => {
     e.preventDefault();
 
-    const validation = this.validationFormFields();
+    this.validationFormFields();
   };
 
   render() {
     return (
       <div className={cn(styles.container)}>
-        <form onSubmit={(e) => this.handleSubmit(e)} className={cn(styles.form)}>
+        <form
+          onSubmit={(e) => this.handleSubmit(e)}
+          className={cn(styles.form)}
+          ref={this.resetForm}
+        >
           <Htag tag="h2">Creating a new card form:</Htag>
           <div className={styles.wrapper}>
             <label htmlFor="name" className={styles.item}>
