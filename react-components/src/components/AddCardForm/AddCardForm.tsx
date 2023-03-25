@@ -140,7 +140,7 @@ export class AddCardForm extends Component<FormProps> {
               <ErrorMessage
                 error={this.state.validation.errorName}
                 message={
-                  'The first letter must be uppercase. Must be at least 4 characters in length. Spaces are not allowed.'
+                  'The first letter must be uppercase. Must be at least 2 characters in length.'
                 }
               />
             </label>

@@ -1,5 +1,5 @@
 export const nameInputValidation = (data: React.RefObject<HTMLInputElement>) => {
-  if (!/^[A-Z]/.test(data.current!.value) || data.current!.value.trim().length <= 3) {
+  if (!/^[A-Z]/.test(data.current!.value) || data.current!.value.trim().length <= 1) {
     return true;
   } else {
     return false;

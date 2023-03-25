@@ -43,7 +43,7 @@ describe('AddCardForm', () => {
 
     expect(
       screen.getByText(
-        'The first letter must be uppercase. Must be at least 4 characters in length. Spaces are not allowed.'
+        'The first letter must be uppercase. Must be at least 2 characters in length.'
       )
     ).toBeInTheDocument();
     expect(screen.getByText('Required field. Enter the date.')).toBeInTheDocument();
