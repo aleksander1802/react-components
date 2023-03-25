@@ -1,33 +1,20 @@
-import { CardsProps } from './CardsForm.props';
+import { ValidCardFields } from './CardsForm.props';
 import { Component } from 'react';
-import { cards } from '../../api/cards';
+import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
+
 import cn from 'classnames';
-import styles from './Cards.module.css';
-
-export class Cards extends Component {
-  state = {
-    cardsList: [],
-    loading: true,
-  };
-
-  componentDidMount() {
-    this.onCardsListLoaded(cards);
-  }
-
-  onCardsListLoaded = (cardsList: CardsProps[]) => {
-    this.setState({
-      cardsList: [...cardsList],
-      loading: false,
-    });
-  };
-
-  renderItems(arr: CardsProps[]) {
-    const items = arr.map((item) => {
+import styles from './CardsForm.module.css';
+export class CardsForm extends Component<ValidCardFields> {
+  renderItems = (arr: ValidFields[]) => {
+    const items = arr.map((item, id) => {
       return (
-        <li className={styles.card} key={item._id}>
-          <img loading="lazy" src={item.url} alt={item.name} className={styles.image} />
+        <li key={id} className={styles.card}>
+          <img className={styles.image} src={URL.createObjectURL(item.image)} alt={item.name} />
           <div className={styles.name}>
             Name: <span>{item.name}</span>
+          </div>
+          <div>
+            Birthday: <span>{item.date}</span>
           </div>
           <div>
             Age: <span className={styles.age}>{item.age}</span>
@@ -36,50 +23,46 @@ export class Cards extends Component {
             Eye color:{' '}
             <span
               className={cn(styles.eye, {
-                [styles.green]: item.eyeColor === 'green',
-                [styles.brown]: item.eyeColor === 'brown',
-                [styles.blue]: item.eyeColor === 'blue',
+                [styles.green]: item.eye === 'green',
+                [styles.brown]: item.eye === 'brown',
+                [styles.blue]: item.eye === 'blue',
               })}
             >
-              {item.eyeColor}
+              {item.eye}
             </span>
           </div>
           <div>
-            Looking for a relationship:{' '}
-            <span
-              className={cn(styles.choice, {
-                [styles.active]: item.isActive,
-                [styles.notactive]: !item.isActive,
+            Favorite messengers:{' '}
+            <span className={styles.messengers}>
+              {item.messengers.map((m) => {
+                return (
+                  <>
+                    <span>{m}</span>
+                  </>
+                );
               })}
-            >
-              {item.isActive ? 'Yep' : 'Nope'}
             </span>
           </div>
           <div>
-            Bank account: <span className={styles.balance}>{item.balance}</span>
-          </div>
-          <div>
-            Email: <span>{item.email}</span>
-          </div>
-          <div>
-            Phone: <span>{item.phone}</span>
+            Gender:{' '}
+            <span>
+              {item.gender[0] === '1'
+                ? 'Male'
+                : item.gender[0] === '2'
+                ? 'Female'
+                : 'Optimus Prime'}
+            </span>
           </div>
         </li>
       );
     });
 
-    return (
-      <ul aria-label="cards" className={styles.wrapper}>
-        {items}
-      </ul>
-    );
-  }
+    return <ul className={styles.wrapper}>{items}</ul>;
+  };
 
   render() {
-    const { cardsList, loading } = this.state;
+    const items = this.renderItems(this.props.data);
 
-    const items = this.renderItems(cardsList);
-    const content = !loading ? items : null;
-    return <div className={styles.cards}>{content}</div>;
+    return <div className={styles.cards}>{items}</div>;
   }
 }

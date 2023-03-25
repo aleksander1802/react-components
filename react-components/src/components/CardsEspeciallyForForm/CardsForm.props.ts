@@ -1,16 +1,5 @@
-export interface CardsProps {
-  _id: string;
-  index: number;
-  isActive: boolean;
-  balance: string;
-  url: string;
-  age: number;
-  eyeColor: string;
-  name: string;
-  gender: string;
-  company: string;
-  email: string;
-  phone: string;
-  address: string;
-  registered: string;
-}
+import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
+
+export type ValidCardFields = {
+  data: ValidFields[];
+};

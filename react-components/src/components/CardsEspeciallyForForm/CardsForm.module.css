@@ -4,9 +4,8 @@
 
 .wrapper {
   display: grid;
-  grid-template-columns: repeat(4, minmax(283px, 1200px));
+  grid-template-columns: repeat(4, minmax(283px, 800px));
   grid-auto-rows: minmax(350px, auto);
-  min-height: 100vh;
   gap: 40px 30px;
   list-style-type: none;
   justify-items: center;
@@ -51,6 +50,7 @@
 
 .image {
   justify-self: center;
+  width: 200px;
 }
 span {
   font-weight: bold;
@@ -68,7 +68,11 @@ span {
   color: crimson;
 }
 
-.balance {
+.messengers {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto;
+  grid-auto-rows: auto;
   font-weight: bold;
   font-size: 18px;
   color: var(--primary);

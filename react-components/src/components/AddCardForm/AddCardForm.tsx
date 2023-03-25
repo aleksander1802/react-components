@@ -11,6 +11,7 @@ import styles from './AddCardForm.module.css';
 
 export class AddCardForm extends Component<FormProps> {
   state = {
+    formCardArray: [],
     validation: {
       errorName: false,
       errorDate: false,
@@ -127,6 +128,29 @@ export class AddCardForm extends Component<FormProps> {
       () => {
         const falseValues = Object.values(this.state.validation);
         if (falseValues.every((item) => !item)) {
+          const newItem = {
+            name: this.nameInputRef.current!.value,
+            date: this.dateRef.current!.value,
+            eye: this.selectEyeColorRef.current!.value,
+            age: this.ageInputRef.current!.value,
+            messengers: this.messengersRefs
+              .filter((item) => item.checked)
+              .map((item) => item.value),
+            gender: this.genderRefs.filter((item) => item.checked).map((item) => item.value),
+            image: this.imageRef.current!.files![0],
+          };
+
+          console.log(newItem);
+
+          this.setState(
+            {
+              formCardArray: [...this.state.formCardArray, newItem],
+            },
+            () => {
+              this.props.setDataState(this.state.formCardArray);
+            }
+          );
+
           this.resetForm.current?.reset();
         }
       }
@@ -271,6 +295,9 @@ export class AddCardForm extends Component<FormProps> {
                 accept="image/x-png,image/gif,image/jpeg,image/png"
                 ref={this.imageRef}
                 id={'imagefield'}
+                className={cn({
+                  [styles.error]: this.state.validation.errorFile,
+                })}
               />
               <ErrorMessage error={this.state.validation.errorFile} message={'Required field'} />
             </label>
