@@ -15,8 +15,6 @@ export class FormPage extends Component {
     });
   };
   render() {
-    console.log(this.state);
-
     return (
       <>
         <AddCardForm setDataState={this.setDataState} />

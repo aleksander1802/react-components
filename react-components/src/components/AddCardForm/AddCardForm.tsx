@@ -140,8 +140,6 @@ export class AddCardForm extends Component<FormProps> {
             image: this.imageRef.current!.files![0],
           };
 
-          console.log(newItem);
-
           this.setState(
             {
               formCardArray: [...this.state.formCardArray, newItem],

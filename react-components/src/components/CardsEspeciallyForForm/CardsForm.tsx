@@ -1,6 +1,8 @@
 import { ValidCardFields } from './CardsForm.props';
 import { Component } from 'react';
 import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
+import { transformDate } from './dateTransform';
+import React from 'react';
 
 import cn from 'classnames';
 import styles from './CardsForm.module.css';
@@ -11,10 +13,10 @@ export class CardsForm extends Component<ValidCardFields> {
         <li key={id} className={styles.card}>
           <img className={styles.image} src={URL.createObjectURL(item.image)} alt={item.name} />
           <div className={styles.name}>
-            Name: <span>{item.name}</span>
+            Name: <span>{item.name.length > 11 ? `${item.name}...` : item.name}</span>
           </div>
           <div>
-            Birthday: <span>{item.date}</span>
+            Birthday: <span>{transformDate(item.date)}</span>
           </div>
           <div>
             Age: <span className={styles.age}>{item.age}</span>
@@ -36,9 +38,9 @@ export class CardsForm extends Component<ValidCardFields> {
             <span className={styles.messengers}>
               {item.messengers.map((m) => {
                 return (
-                  <>
+                  <React.Fragment key={m}>
                     <span>{m}</span>
-                  </>
+                  </React.Fragment>
                 );
               })}
             </span>
