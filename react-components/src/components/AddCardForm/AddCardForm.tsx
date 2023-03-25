@@ -132,10 +132,16 @@ export class AddCardForm extends Component<FormProps> {
                 type={'text'}
                 placeholder={'Enter name'}
                 ref={this.nameInputRef}
+                aria-label="name"
                 className={cn({
                   [styles.error]: this.state.validation.errorName,
-                  [styles.errorname]: this.state.validation.errorName,
                 })}
+              />
+              <ErrorMessage
+                error={this.state.validation.errorName}
+                message={
+                  'The first letter must be uppercase. Must be at least 4 characters in length. Spaces are not allowed.'
+                }
               />
             </label>
 
@@ -144,11 +150,15 @@ export class AddCardForm extends Component<FormProps> {
               <Input
                 id="date"
                 type={'date'}
+                aria-label="date"
                 ref={this.dateRef}
                 className={cn(styles.date, {
                   [styles.error]: this.state.validation.errorDate,
-                  [styles.errorDate]: this.state.validation.errorDate,
                 })}
+              />
+              <ErrorMessage
+                error={this.state.validation.errorDate}
+                message={'Required field. Enter the date.'}
               />
             </label>
 
@@ -156,6 +166,7 @@ export class AddCardForm extends Component<FormProps> {
               <span>Eye color:</span>
               <select
                 id="eye"
+                aria-label="eye"
                 className={cn(styles.select, {
                   [styles.errorEye]: this.state.validation.errorEye,
                 })}
@@ -169,7 +180,12 @@ export class AddCardForm extends Component<FormProps> {
                   );
                 })}
               </select>
-              {<ErrorMessage error={this.state.validation.errorEye} message={'Required field'} />}
+              {
+                <ErrorMessage
+                  error={this.state.validation.errorEye}
+                  message={'Please select eye color.'}
+                />
+              }
             </label>
 
             <label htmlFor="age" className={styles.item}>
@@ -177,23 +193,27 @@ export class AddCardForm extends Component<FormProps> {
               <Input
                 id="age"
                 type={'number'}
+                aria-label="age"
                 placeholder={'Enter age'}
                 className={cn(styles.age, {
                   [styles.error]: this.state.validation.errorAge,
-                  [styles.errorAge]: this.state.validation.errorAge,
                 })}
                 ref={this.ageInputRef}
+              />
+              <ErrorMessage
+                error={this.state.validation.errorDate}
+                message={'Required field. Enter correct value.'}
               />
             </label>
 
             <div className={styles.options}>
-              <span>Messengers: </span>
+              <span>Messengers:</span>
               <div
                 className={cn(styles.sex, {
                   [styles.errorMessengers]: this.state.validation.errorMessengers,
                 })}
               >
-                {this.messengers.map((item) => {
+                {this.messengers.map((item, i) => {
                   return (
                     <label key={item} className={styles.option}>
                       <span>{item}</span>
@@ -202,6 +222,7 @@ export class AddCardForm extends Component<FormProps> {
                         type="checkbox"
                         name="checkbox"
                         ref={this.setMessengersRef}
+                        aria-label={'messengers' + i}
                         value={item}
                       />
                     </label>
@@ -211,23 +232,30 @@ export class AddCardForm extends Component<FormProps> {
               {
                 <ErrorMessage
                   error={this.state.validation.errorMessengers}
-                  message={'Required field'}
+                  message={'Please select messengers.'}
                 />
               }
             </div>
 
             <div className={styles.options}>
-              <span>Gender: </span>
+              <span>Gender:</span>
               <div
                 className={cn(styles.sex, {
                   [styles.errorMessengers]: this.state.validation.errorGender,
                 })}
               >
-                {this.options.map((item) => {
+                {this.options.map((item, i) => {
                   return (
                     <label key={item.id} className={styles.option}>
                       <span>{item.name}</span>
-                      <Input id="id" type="radio" name="gender" ref={this.setRef} value={item.id} />
+                      <Input
+                        id="id"
+                        type="radio"
+                        name="gender"
+                        aria-label={'gender' + i}
+                        ref={this.setRef}
+                        value={item.id}
+                      />
                     </label>
                   );
                 })}
@@ -235,7 +263,7 @@ export class AddCardForm extends Component<FormProps> {
               {
                 <ErrorMessage
                   error={this.state.validation.errorGender}
-                  message={'Required field'}
+                  message={'Please select gender.'}
                 />
               }
             </div>
@@ -247,18 +275,23 @@ export class AddCardForm extends Component<FormProps> {
                 accept="image/x-png,image/gif,image/jpeg,image/png"
                 ref={this.imageRef}
                 id={'imagefield'}
+                aria-label="image"
                 className={cn({
                   [styles.error]: this.state.validation.errorFile,
                 })}
               />
-              <ErrorMessage error={this.state.validation.errorFile} message={'Required field'} />
+              <ErrorMessage
+                error={this.state.validation.errorFile}
+                message={'Please select image.'}
+              />
             </label>
 
-            <Button type="submit" appearance="primary" className={styles.button}>
+            <Button type="submit" appearance="primary" className={styles.button} role="button">
               <span>Submit</span>
             </Button>
           </div>
         </form>
+
         <SuccessMessage
           success={this.state.isValid}
           message={'Congratulations! Your card has been successfully created.'}
