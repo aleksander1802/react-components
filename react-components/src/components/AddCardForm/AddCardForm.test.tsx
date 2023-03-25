@@ -6,7 +6,6 @@ describe('AddCardForm', () => {
   it('should render the form correctly', () => {
     render(<AddCardForm setDataState={vi.fn()} />);
 
-    // Check that the form elements are rendered
     expect(screen.getByText('Name:')).toBeInTheDocument();
     expect(screen.getByText('Birthday:')).toBeInTheDocument();
     expect(screen.getByText('Eye color:')).toBeInTheDocument();
@@ -20,7 +19,6 @@ describe('AddCardForm', () => {
   it('should display an error message when the form is submitted with invalid data', () => {
     render(<AddCardForm setDataState={vi.fn()} />);
 
-    // Fill in the form with invalid data
     fireEvent.change(screen.getByLabelText('name'), { target: { value: '' } });
     fireEvent.change(screen.getByLabelText('date'), { target: { value: '' } });
     fireEvent.change(screen.getByLabelText('eye'), { target: { value: '' } });
@@ -35,7 +33,6 @@ describe('AddCardForm', () => {
     fireEvent.change(screen.getByLabelText('image'), { target: { value: '' } });
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
 
-    // Check that the error messages are displayed
     expect(
       screen.getByText(
         'The first letter must be uppercase. Must be at least 4 characters in length. Spaces are not allowed.'
