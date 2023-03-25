@@ -1,10 +1,17 @@
 import { FormProps } from './AddCardForm.props';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
-import React, { Component, FormEvent, createRef } from 'react';
+import { Component, FormEvent, createRef } from 'react';
 import { Htag } from '../../components/Htag/Htag';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import { SuccessMessage } from '../../components/SuccessMessage/SuccessMessage';
+import { nameInputValidation } from './CardsFormValidation';
+import { dateInputValidation } from './CardsFormValidation';
+import { ageInputValidation } from './CardsFormValidation';
+import { eyeInputValidation } from './CardsFormValidation';
+import { messengersInputValidation } from './CardsFormValidation';
+import { genderInputValidation } from './CardsFormValidation';
+import { imageInputValidation } from './CardsFormValidation';
 
 import cn from 'classnames';
 
@@ -36,14 +43,6 @@ export class AddCardForm extends Component<FormProps> {
   genderRefs: HTMLInputElement[] = [];
   messengersRefs: HTMLInputElement[] = [];
 
-  setRef = (ref: HTMLInputElement) => {
-    this.genderRefs.push(ref);
-  };
-
-  setMessengersRef = (ref: HTMLInputElement) => {
-    this.messengersRefs.push(ref);
-  };
-
   nameInputRef = createRef<HTMLInputElement>();
   dateRef = createRef<HTMLInputElement>();
   selectEyeColorRef = createRef<HTMLSelectElement>();
@@ -52,79 +51,25 @@ export class AddCardForm extends Component<FormProps> {
   messengersInputRef = createRef<HTMLInputElement>();
   imageRef = createRef<HTMLInputElement>();
   resetForm = createRef<HTMLFormElement>();
-
-  nameInputValidation = (data: React.RefObject<HTMLInputElement>) => {
-    if (!/^[A-Z]/.test(data.current!.value) || data.current!.value.trim().length <= 3) {
-      return true;
-    } else {
-      return false;
-    }
+  setRef = (ref: HTMLInputElement) => {
+    this.genderRefs.push(ref);
   };
 
-  dateInputValidation = (data: React.RefObject<HTMLInputElement>) => {
-    if (data.current?.value.length === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  ageInputValidation = (data: React.RefObject<HTMLInputElement>) => {
-    const ageLimit = 200;
-    if (
-      data.current?.value.length === 0 ||
-      +data.current!.value > ageLimit ||
-      +data.current!.value === 0
-    ) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  eyeInputValidation = (data: React.RefObject<HTMLSelectElement>) => {
-    if (data.current?.value.length === 0) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  messengersInputValidation = (data: HTMLInputElement[]) => {
-    if (!data.some((item) => item.checked)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  genderInputValidation = (data: HTMLInputElement[]) => {
-    if (!data.some((item) => item.checked)) {
-      return true;
-    } else {
-      return false;
-    }
-  };
-
-  imageInputValidation = (data: React.RefObject<HTMLInputElement>) => {
-    if (data.current?.value === '') {
-      return true;
-    } else {
-      return false;
-    }
+  setMessengersRef = (ref: HTMLInputElement) => {
+    this.messengersRefs.push(ref);
   };
 
   validationFormFields = () => {
     this.setState(
       {
         validation: {
-          errorName: this.nameInputValidation(this.nameInputRef),
-          errorDate: this.dateInputValidation(this.dateRef),
-          errorEye: this.eyeInputValidation(this.selectEyeColorRef),
-          errorAge: this.ageInputValidation(this.ageInputRef),
-          errorMessengers: this.messengersInputValidation(this.messengersRefs),
-          errorGender: this.genderInputValidation(this.genderRefs),
-          errorFile: this.imageInputValidation(this.imageRef),
+          errorName: nameInputValidation(this.nameInputRef),
+          errorDate: dateInputValidation(this.dateRef),
+          errorEye: eyeInputValidation(this.selectEyeColorRef),
+          errorAge: ageInputValidation(this.ageInputRef),
+          errorMessengers: messengersInputValidation(this.messengersRefs),
+          errorGender: genderInputValidation(this.genderRefs),
+          errorFile: imageInputValidation(this.imageRef),
         },
       },
       () => {
