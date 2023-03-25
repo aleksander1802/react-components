@@ -1,6 +1,14 @@
 import { render, fireEvent, screen } from '@testing-library/react';
+import { RefObject } from 'react';
 import { vi } from 'vitest';
 import { AddCardForm } from './AddCardForm';
+import { nameInputValidation } from './CardsFormValidation';
+import { dateInputValidation } from './CardsFormValidation';
+import { ageInputValidation } from './CardsFormValidation';
+import { eyeInputValidation } from './CardsFormValidation';
+import { messengersInputValidation } from './CardsFormValidation';
+import { genderInputValidation } from './CardsFormValidation';
+import { imageInputValidation } from './CardsFormValidation';
 
 describe('AddCardForm', () => {
   it('should render the form correctly', () => {
@@ -44,5 +52,91 @@ describe('AddCardForm', () => {
     expect(screen.getByText('Please select messengers.')).toBeInTheDocument();
     expect(screen.getByText('Please select gender.')).toBeInTheDocument();
     expect(screen.getByText('Please select image.')).toBeInTheDocument();
+  });
+});
+
+describe('Input validation functions', () => {
+  describe('nameInputValidation', () => {
+    it('should return true when name is invalid', () => {
+      const input = { current: { value: 'john' } } as RefObject<HTMLInputElement>;
+      expect(nameInputValidation(input)).toBe(true);
+    });
+
+    it('should return false when name is valid', () => {
+      const input = { current: { value: 'John' } } as RefObject<HTMLInputElement>;
+      expect(nameInputValidation(input)).toBe(false);
+    });
+  });
+
+  describe('dateInputValidation', () => {
+    it('should return true when date is empty', () => {
+      const input = { current: { value: '' } } as RefObject<HTMLInputElement>;
+      expect(dateInputValidation(input)).toBe(true);
+    });
+
+    it('should return false when date is not empty', () => {
+      const input = { current: { value: '2022-01-01' } } as RefObject<HTMLInputElement>;
+      expect(dateInputValidation(input)).toBe(false);
+    });
+  });
+
+  describe('ageInputValidation', () => {
+    it('should return true when age is invalid', () => {
+      const input = { current: { value: '0' } } as RefObject<HTMLInputElement>;
+      expect(ageInputValidation(input)).toBe(true);
+    });
+
+    it('should return false when age is valid', () => {
+      const input = { current: { value: '25' } } as RefObject<HTMLInputElement>;
+      expect(ageInputValidation(input)).toBe(false);
+    });
+  });
+
+  describe('eyeInputValidation', () => {
+    it('should return true when eye color is not selected', () => {
+      const input = { current: { value: '' } } as RefObject<HTMLSelectElement>;
+      expect(eyeInputValidation(input)).toBe(true);
+    });
+
+    it('should return false when eye color is selected', () => {
+      const input = { current: { value: 'brown' } } as RefObject<HTMLSelectElement>;
+      expect(eyeInputValidation(input)).toBe(false);
+    });
+  });
+
+  describe('messengersInputValidation', () => {
+    it('should return true when no messenger is selected', () => {
+      const input = [] as HTMLInputElement[];
+      expect(messengersInputValidation(input)).toBe(true);
+    });
+
+    it('should return false when at least one messenger is selected', () => {
+      const input = [{ checked: true }] as HTMLInputElement[];
+      expect(messengersInputValidation(input)).toBe(false);
+    });
+  });
+
+  describe('genderInputValidation', () => {
+    it('should return true when no gender is selected', () => {
+      const input = [] as HTMLInputElement[];
+      expect(genderInputValidation(input)).toBe(true);
+    });
+
+    it('should return false when at least one gender is selected', () => {
+      const input = [{ checked: true }] as HTMLInputElement[];
+      expect(genderInputValidation(input)).toBe(false);
+    });
+  });
+
+  describe('imageInputValidation', () => {
+    it('should return true when no image is selected', () => {
+      const input = { current: { value: '' } } as RefObject<HTMLInputElement>;
+      expect(imageInputValidation(input)).toBe(true);
+    });
+
+    it('should return false when an image is selected', () => {
+      const input = { current: { value: 'test.jpg' } } as RefObject<HTMLInputElement>;
+      expect(imageInputValidation(input)).toBe(false);
+    });
   });
 });
