@@ -1,0 +1,10 @@
+.successMessage {
+  position: absolute;
+  bottom: -30px;
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--primary);
+  height: auto;
+  font-size: 20px;
+  font-weight: bold;
+}

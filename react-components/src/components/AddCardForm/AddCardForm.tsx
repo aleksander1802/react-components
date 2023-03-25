@@ -4,6 +4,7 @@ import { Button } from '../../components/Button/Button';
 import React, { Component, FormEvent, createRef } from 'react';
 import { Htag } from '../../components/Htag/Htag';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
+import { SuccessMessage } from '../../components/SuccessMessage/SuccessMessage';
 
 import cn from 'classnames';
 
@@ -12,6 +13,7 @@ import styles from './AddCardForm.module.css';
 export class AddCardForm extends Component<FormProps> {
   state = {
     formCardArray: [],
+    isValid: false,
     validation: {
       errorName: false,
       errorDate: false,
@@ -143,9 +145,16 @@ export class AddCardForm extends Component<FormProps> {
           this.setState(
             {
               formCardArray: [...this.state.formCardArray, newItem],
+              isValid: true,
             },
             () => {
               this.props.setDataState(this.state.formCardArray);
+              const modalDisplayTime = 3000;
+              setTimeout(() => {
+                this.setState({
+                  isValid: false,
+                });
+              }, modalDisplayTime);
             }
           );
 
@@ -305,6 +314,10 @@ export class AddCardForm extends Component<FormProps> {
             </Button>
           </div>
         </form>
+        <SuccessMessage
+          success={this.state.isValid}
+          message={'Congratulations! Your card has been successfully created.'}
+        />
       </div>
     );
   }

@@ -20,6 +20,7 @@
 .container {
   background: var(--gray-light);
   height: auto;
+  position: relative;
 }
 
 .form,
