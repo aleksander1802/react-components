@@ -123,7 +123,7 @@ export class AddCardForm extends Component<FormProps> {
           className={cn(styles.form)}
           ref={this.resetForm}
         >
-          <Htag tag="h2">Creating a new card form:</Htag>
+          <Htag tag="h2">Form for creating a new card:</Htag>
           <div className={styles.wrapper}>
             <label htmlFor="name" className={styles.item}>
               <span>Name:</span>
