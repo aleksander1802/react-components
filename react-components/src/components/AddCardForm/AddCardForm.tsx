@@ -201,7 +201,7 @@ export class AddCardForm extends Component<FormProps> {
                 ref={this.ageInputRef}
               />
               <ErrorMessage
-                error={this.state.validation.errorDate}
+                error={this.state.validation.errorAge}
                 message={'Required field. Enter correct value.'}
               />
             </label>

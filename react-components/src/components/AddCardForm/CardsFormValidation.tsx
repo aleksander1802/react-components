@@ -16,11 +16,7 @@ export const dateInputValidation = (data: React.RefObject<HTMLInputElement>) => 
 
 export const ageInputValidation = (data: React.RefObject<HTMLInputElement>) => {
   const ageLimit = 200;
-  if (
-    data.current?.value.length === 0 ||
-    +data.current!.value > ageLimit ||
-    +data.current!.value === 0
-  ) {
+  if (+data.current!.value <= 0 || +data.current!.value >= ageLimit) {
     return true;
   } else {
     return false;
