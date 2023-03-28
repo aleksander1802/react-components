@@ -76,7 +76,6 @@ export const Cards = () => {
 
   const items = renderItems(cardsList);
   const content = !loading ? items : null;
-  console.log('render');
 
   return <div className={styles.cards}>{content}</div>;
 };
