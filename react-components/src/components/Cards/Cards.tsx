@@ -1,27 +1,26 @@
 import { CardsProps } from './Cards.props';
-import { Component } from 'react';
 import { cards } from '../../api/cards';
 import cn from 'classnames';
 import styles from './Cards.module.css';
+import { useState, useEffect } from 'react';
 
-export class Cards extends Component {
-  state = {
-    cardsList: [],
-    loading: true,
+export const Cards = () => {
+  const initialCardsList: CardsProps[] = [];
+  const initialLoading = true;
+
+  const [cardsList, setCardsList] = useState(initialCardsList);
+  const [loading, setLoading] = useState<boolean>(initialLoading);
+
+  useEffect(() => {
+    onCardsListLoaded(cards);
+  }, []);
+
+  const onCardsListLoaded = (cardsList: CardsProps[]) => {
+    setCardsList([...cardsList]);
+    setLoading(false);
   };
 
-  componentDidMount() {
-    this.onCardsListLoaded(cards);
-  }
-
-  onCardsListLoaded = (cardsList: CardsProps[]) => {
-    this.setState({
-      cardsList: [...cardsList],
-      loading: false,
-    });
-  };
-
-  renderItems(arr: CardsProps[]) {
+  const renderItems = (arr: CardsProps[]) => {
     const items = arr.map((item) => {
       return (
         <li className={styles.card} key={item._id}>
@@ -73,13 +72,11 @@ export class Cards extends Component {
         {items}
       </ul>
     );
-  }
+  };
 
-  render() {
-    const { cardsList, loading } = this.state;
+  const items = renderItems(cardsList);
+  const content = !loading ? items : null;
+  console.log('render');
 
-    const items = this.renderItems(cardsList);
-    const content = !loading ? items : null;
-    return <div className={styles.cards}>{content}</div>;
-  }
-}
+  return <div className={styles.cards}>{content}</div>;
+};
