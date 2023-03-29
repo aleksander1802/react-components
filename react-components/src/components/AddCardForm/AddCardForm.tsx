@@ -1,302 +1,198 @@
 import { FormProps } from './AddCardForm.props';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
-import { Component, FormEvent, createRef } from 'react';
 import { Htag } from '../../components/Htag/Htag';
-import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import { SuccessMessage } from '../../components/SuccessMessage/SuccessMessage';
-import { nameInputValidation } from './CardsFormValidation';
-import { dateInputValidation } from './CardsFormValidation';
-import { ageInputValidation } from './CardsFormValidation';
-import { eyeInputValidation } from './CardsFormValidation';
-import { messengersInputValidation } from './CardsFormValidation';
-import { genderInputValidation } from './CardsFormValidation';
-import { imageInputValidation } from './CardsFormValidation';
+import { useForm } from 'react-hook-form';
+import { useState } from 'react';
+import { ValidFields } from './AddCardForm.props';
 
 import cn from 'classnames';
 
 import styles from './AddCardForm.module.css';
+import classNames from 'classnames';
 
-export class AddCardForm extends Component<FormProps> {
-  state = {
-    formCardArray: [],
-    isValid: false,
-    validation: {
-      errorName: false,
-      errorDate: false,
-      errorEye: false,
-      errorAge: false,
-      errorMessengers: false,
-      errorGender: false,
-      errorFile: false,
-    },
+export const AddCardForm = (props: FormProps) => {
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors },
+  } = useForm<ValidFields>();
+
+  const { setDataState } = props;
+
+  const [isSuccess, setIsSuccess] = useState<boolean>(false);
+
+  const options = [{ name: 'Male' }, { name: 'Female' }, { name: 'Optimus Prime' }];
+
+  const eye = ['', 'blue', 'brown', 'green'];
+  const messengers = ['Telegram', 'Viber', 'WhatsApp', 'Skype', 'VK Messenger'];
+
+  const onSubmit = (data: ValidFields) => {
+    console.log(data);
+    setDataState(data);
+    setIsSuccess(true);
+    setTimeout(() => {
+      setIsSuccess(false);
+    }, 3000);
   };
 
-  options = [
-    { id: 1, name: 'Male' },
-    { id: 2, name: 'Female' },
-    { id: 3, name: 'Optimus Prime' },
-  ];
+  return (
+    <div className={cn(styles.container)}>
+      <form onSubmit={handleSubmit(onSubmit)} className={cn(styles.form)}>
+        <Htag tag="h2">Form for creating a new card:</Htag>
+        <div className={styles.wrapper}>
+          <label htmlFor="name" className={styles.item}>
+            <span>Name:</span>
+            <Input
+              id="name"
+              type={'text'}
+              placeholder={'Enter name'}
+              error={errors.name}
+              {...register('name', {
+                minLength: {
+                  value: 2,
+                  message: 'Must be at least 2 characters in length.',
+                },
+                required: {
+                  value: true,
+                  message: 'Required field',
+                },
+              })}
+            />
+          </label>
 
-  eye = ['', 'blue', 'brown', 'green'];
-  messengers = ['Telegram', 'Viber', 'WhatsApp', 'Skype', 'VK Messenger'];
-  genderRefs: HTMLInputElement[] = [];
-  messengersRefs: HTMLInputElement[] = [];
+          <label htmlFor="date" className={styles.item}>
+            <span>Birthday:</span>
+            <Input
+              id="date"
+              type={'date'}
+              aria-label="date"
+              {...register('date', {
+                required: {
+                  value: true,
+                  message: 'Required field. Enter the date.',
+                },
+              })}
+              className={styles.date}
+              error={errors.date}
+            />
+          </label>
 
-  nameInputRef = createRef<HTMLInputElement>();
-  dateRef = createRef<HTMLInputElement>();
-  selectEyeColorRef = createRef<HTMLSelectElement>();
-  ageInputRef = createRef<HTMLInputElement>();
-  genderRef = createRef<HTMLInputElement>();
-  messengersInputRef = createRef<HTMLInputElement>();
-  imageRef = createRef<HTMLInputElement>();
-  resetForm = createRef<HTMLFormElement>();
-  setRef = (ref: HTMLInputElement) => {
-    this.genderRefs.push(ref);
-  };
+          <label htmlFor="eye" className={styles.item}>
+            <span>Eye color:</span>
+            <select
+              id="eye"
+              aria-label="eye"
+              className={cn(styles.select, {
+                [styles.errorEye]: errors.eye,
+              })}
+              {...register('eye')}
+            >
+              {eye.map((item) => {
+                return (
+                  <option value={item} key={item}>
+                    {item}
+                  </option>
+                );
+              })}
+            </select>
+          </label>
 
-  setMessengersRef = (ref: HTMLInputElement) => {
-    this.messengersRefs.push(ref);
-  };
+          <label htmlFor="age" className={styles.item}>
+            <span>Age:</span>
+            <Input
+              id="age"
+              type={'number'}
+              aria-label="age"
+              placeholder={'Enter age'}
+              error={errors.age}
+              {...register('age', {
+                required: {
+                  value: true,
+                  message: 'Required field. Enter correct value.',
+                },
+              })}
+            />
+          </label>
 
-  validationFormFields = () => {
-    this.setState(
-      {
-        validation: {
-          errorName: nameInputValidation(this.nameInputRef),
-          errorDate: dateInputValidation(this.dateRef),
-          errorEye: eyeInputValidation(this.selectEyeColorRef),
-          errorAge: ageInputValidation(this.ageInputRef),
-          errorMessengers: messengersInputValidation(this.messengersRefs),
-          errorGender: genderInputValidation(this.genderRefs),
-          errorFile: imageInputValidation(this.imageRef),
-        },
-      },
-      () => {
-        const falseValues = Object.values(this.state.validation);
-        if (falseValues.every((item) => !item)) {
-          const newItem = {
-            name: this.nameInputRef.current!.value,
-            date: this.dateRef.current!.value,
-            eye: this.selectEyeColorRef.current!.value,
-            age: this.ageInputRef.current!.value,
-            messengers: this.messengersRefs
-              .filter((item) => item.checked)
-              .map((item) => item.value),
-            gender: this.genderRefs.filter((item) => item.checked).map((item) => item.value),
-            image: this.imageRef.current!.files![0],
-          };
-
-          this.setState(
-            {
-              formCardArray: [...this.state.formCardArray, newItem],
-              isValid: true,
-            },
-            () => {
-              this.props.setDataState(this.state.formCardArray);
-              const modalDisplayTime = 3000;
-              setTimeout(() => {
-                this.setState({
-                  isValid: false,
-                });
-              }, modalDisplayTime);
-            }
-          );
-
-          this.resetForm.current?.reset();
-        }
-      }
-    );
-  };
-
-  handleSubmit = (e: FormEvent): void => {
-    e.preventDefault();
-
-    this.validationFormFields();
-  };
-
-  render() {
-    return (
-      <div className={cn(styles.container)}>
-        <form
-          onSubmit={(e) => this.handleSubmit(e)}
-          className={cn(styles.form)}
-          ref={this.resetForm}
-        >
-          <Htag tag="h2">Form for creating a new card:</Htag>
-          <div className={styles.wrapper}>
-            <label htmlFor="name" className={styles.item}>
-              <span>Name:</span>
-              <Input
-                id="name"
-                type={'text'}
-                placeholder={'Enter name'}
-                ref={this.nameInputRef}
-                aria-label="name"
-                className={cn({
-                  [styles.error]: this.state.validation.errorName,
-                })}
-              />
-              <ErrorMessage
-                error={this.state.validation.errorName}
-                message={
-                  'The first letter must be uppercase. Must be at least 2 characters in length.'
-                }
-              />
-            </label>
-
-            <label htmlFor="date" className={styles.item}>
-              <span>Birthday:</span>
-              <Input
-                id="date"
-                type={'date'}
-                aria-label="date"
-                ref={this.dateRef}
-                className={cn(styles.date, {
-                  [styles.error]: this.state.validation.errorDate,
-                })}
-              />
-              <ErrorMessage
-                error={this.state.validation.errorDate}
-                message={'Required field. Enter the date.'}
-              />
-            </label>
-
-            <label htmlFor="eye" className={styles.item}>
-              <span>Eye color:</span>
-              <select
-                id="eye"
-                aria-label="eye"
-                className={cn(styles.select, {
-                  [styles.errorEye]: this.state.validation.errorEye,
-                })}
-                ref={this.selectEyeColorRef}
-              >
-                {this.eye.map((item) => {
-                  return (
-                    <option value={item} key={item}>
-                      {item}
-                    </option>
-                  );
-                })}
-              </select>
-              {
-                <ErrorMessage
-                  error={this.state.validation.errorEye}
-                  message={'Please select eye color.'}
-                />
-              }
-            </label>
-
-            <label htmlFor="age" className={styles.item}>
-              <span>Age:</span>
-              <Input
-                id="age"
-                type={'number'}
-                aria-label="age"
-                placeholder={'Enter age'}
-                className={cn(styles.age, {
-                  [styles.error]: this.state.validation.errorAge,
-                })}
-                ref={this.ageInputRef}
-              />
-              <ErrorMessage
-                error={this.state.validation.errorAge}
-                message={'Required field. Enter correct value.'}
-              />
-            </label>
-
-            <div className={styles.options}>
-              <span>Messengers:</span>
-              <div
-                className={cn(styles.sex, {
-                  [styles.errorMessengers]: this.state.validation.errorMessengers,
-                })}
-              >
-                {this.messengers.map((item, i) => {
-                  return (
-                    <label key={item} className={styles.option}>
-                      <span>{item}</span>
-                      <Input
-                        id="check"
-                        type="checkbox"
-                        name="checkbox"
-                        ref={this.setMessengersRef}
-                        aria-label={'messengers' + i}
-                        value={item}
-                      />
-                    </label>
-                  );
-                })}
-              </div>
-              {
-                <ErrorMessage
-                  error={this.state.validation.errorMessengers}
-                  message={'Please select messengers.'}
-                />
-              }
+          <div className={styles.options}>
+            <span>Messengers:</span>
+            <div
+              className={cn(styles.sex, {
+                [styles.errorMessengers]: errors.messengers,
+              })}
+            >
+              {messengers.map((item, i) => {
+                return (
+                  <label key={item} className={styles.option}>
+                    <span>{item}</span>
+                    <Input
+                      id="check"
+                      type="checkbox"
+                      {...register('messengers')}
+                      aria-label={'messengers' + i}
+                      value={item}
+                    />
+                  </label>
+                );
+              })}
             </div>
-
-            <div className={styles.options}>
-              <span>Gender:</span>
-              <div
-                className={cn(styles.sex, {
-                  [styles.errorMessengers]: this.state.validation.errorGender,
-                })}
-              >
-                {this.options.map((item, i) => {
-                  return (
-                    <label key={item.id} className={styles.option}>
-                      <span>{item.name}</span>
-                      <Input
-                        id="id"
-                        type="radio"
-                        name="gender"
-                        aria-label={'gender' + i}
-                        ref={this.setRef}
-                        value={item.id}
-                      />
-                    </label>
-                  );
-                })}
-              </div>
-              {
-                <ErrorMessage
-                  error={this.state.validation.errorGender}
-                  message={'Please select gender.'}
-                />
-              }
-            </div>
-
-            <label htmlFor="imagefield" className={styles.item}>
-              <span>Picture:</span>
-              <Input
-                type={'file'}
-                accept="image/x-png,image/gif,image/jpeg,image/png"
-                ref={this.imageRef}
-                id={'imagefield'}
-                aria-label="image"
-                className={cn({
-                  [styles.error]: this.state.validation.errorFile,
-                })}
-              />
-              <ErrorMessage
-                error={this.state.validation.errorFile}
-                message={'Please select image.'}
-              />
-            </label>
-
-            <Button type="submit" appearance="primary" className={styles.button} role="button">
-              <span>Submit</span>
-            </Button>
           </div>
-        </form>
 
-        <SuccessMessage
-          success={this.state.isValid}
-          message={'Congratulations! Your card has been successfully created.'}
-        />
-      </div>
-    );
-  }
-}
+          <div className={styles.options}>
+            <span>Gender:</span>
+            <div
+              className={cn(styles.sex, {
+                [styles.errorMessengers]: errors.gender,
+              })}
+            >
+              {options.map((item, i) => {
+                return (
+                  <label key={item.name} className={styles.option}>
+                    <span>{item.name}</span>
+                    <Input
+                      id="id"
+                      type="radio"
+                      aria-label={'gender' + i}
+                      {...register('gender')}
+                      value={item.name}
+                    />
+                  </label>
+                );
+              })}
+            </div>
+          </div>
+
+          <label htmlFor="imagefield" className={styles.item}>
+            <span>Picture:</span>
+            <Input
+              type={'file'}
+              accept="image/x-png,image/gif,image/jpeg,image/png"
+              {...register('image', {
+                required: {
+                  value: true,
+                  message: 'Required field. Please select an image.',
+                },
+              })}
+              id={'imagefield'}
+              aria-label="image"
+              name="image"
+              error={errors.image}
+            />
+          </label>
+
+          <Button type="submit" appearance="primary" className={styles.button} role="button">
+            <span>Submit</span>
+          </Button>
+        </div>
+      </form>
+
+      <SuccessMessage
+        success={isSuccess}
+        message={'Congratulations! Your card has been successfully created.'}
+      />
+    </div>
+  );
+};

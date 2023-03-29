@@ -1,25 +1,21 @@
-import { Component } from 'react';
 import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
+import { useState } from 'react';
 
 import { AddCardForm } from '../../components/AddCardForm/AddCardForm';
 import { CardsForm } from '../../components/CardsEspeciallyForForm/CardsForm';
 
-export class FormPage extends Component {
-  state = {
-    cardsArray: [],
+export const FormPage = () => {
+  const initialCardsArray: ValidFields[] = [];
+  const [cardsArray, setCardsArray] = useState(initialCardsArray);
+
+  const setDataState = (data: ValidFields) => {
+    setCardsArray((prevData) => [...prevData, data]);
   };
 
-  setDataState = (data: ValidFields[]) => {
-    this.setState({
-      cardsArray: data,
-    });
-  };
-  render() {
-    return (
-      <>
-        <AddCardForm setDataState={this.setDataState} />
-        <CardsForm data={this.state.cardsArray} />
-      </>
-    );
-  }
-}
+  return (
+    <>
+      <AddCardForm setDataState={setDataState} />
+      <CardsForm data={cardsArray} />
+    </>
+  );
+};

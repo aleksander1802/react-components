@@ -26,6 +26,10 @@
   transition: all 0.5s;
 }
 
+.card span {
+  font-weight: bold;
+}
+
 .card div {
   border-bottom: 1px dotted rgba(0, 0, 0, 0.144);
 }
@@ -52,10 +56,6 @@
   justify-self: center;
   max-width: 200px;
   max-height: 300px;
-}
-
-span {
-  font-weight: bold;
 }
 
 .messengers {

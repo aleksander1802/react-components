@@ -1,7 +1,8 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
+import { FieldError } from 'react-hook-form';
 
 export type SetDataState = {
-  setDataState: (data: ValidFields[]) => void;
+  setDataState: (data: ValidFields) => void;
 };
 
 export type ValidFields = {
@@ -10,8 +11,9 @@ export type ValidFields = {
   eye: string;
   age: string;
   messengers: string[];
-  gender: string[];
-  image: Blob | MediaSource;
+  gender: string;
+  image: FileList;
 };
+
 export type FormProps = DetailedHTMLProps<InputHTMLAttributes<HTMLFormElement>, HTMLFormElement> &
   SetDataState;

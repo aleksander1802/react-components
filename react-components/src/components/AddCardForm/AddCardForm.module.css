@@ -48,6 +48,10 @@
   position: relative;
 }
 
+.item span {
+  font-weight: bold;
+}
+
 .age input[type='number']::-webkit-outer-spin-button,
 .age input[type='number']::-webkit-inner-spin-button {
   -webkit-appearance: none;
@@ -70,13 +74,6 @@
   justify-items: stretch;
 }
 
-.sex span {
-  font-weight: normal;
-}
-.errorMessengers {
-  border: 1px solid var(--crimson);
-}
-
 .options {
   display: grid;
   width: 100%;
@@ -85,6 +82,14 @@
   column-gap: 15px;
   align-items: center;
   position: relative;
+}
+
+.options span {
+  font-weight: bold;
+}
+
+.sex span {
+  font-weight: normal;
 }
 
 .option {
@@ -105,7 +110,7 @@
   width: 237px;
 }
 
-.date input {
+.date {
   width: 237px;
 }
 
@@ -113,11 +118,6 @@
   max-height: 50px;
   width: 170px;
   font-size: 20px;
-}
-
-.errorfile {
-  left: 485px;
-  background-color: #fff;
 }
 
 .error input,

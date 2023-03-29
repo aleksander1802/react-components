@@ -51,7 +51,7 @@ describe('AddCardForm', () => {
     expect(screen.getByText('Required field. Enter correct value.')).toBeInTheDocument();
     expect(screen.getByText('Please select messengers.')).toBeInTheDocument();
     expect(screen.getByText('Please select gender.')).toBeInTheDocument();
-    expect(screen.getByText('Please select image.')).toBeInTheDocument();
+    expect(screen.getByText('Please select an image.')).toBeInTheDocument();
   });
 });
 

@@ -52,7 +52,8 @@
 .image {
   justify-self: center;
 }
-span {
+
+.card span {
   font-weight: bold;
 }
 

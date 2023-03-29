@@ -1,17 +1,18 @@
 import { ValidCardFields } from './CardsForm.props';
-import { Component } from 'react';
 import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
 import { transformDate } from './dateTransform';
 import React from 'react';
+import { useState } from 'react';
 
 import cn from 'classnames';
 import styles from './CardsForm.module.css';
-export class CardsForm extends Component<ValidCardFields> {
-  renderItems = (arr: ValidFields[]) => {
+
+export const CardsForm = (props: ValidCardFields) => {
+  const renderItems = (arr: ValidFields[]) => {
     const items = arr.map((item, id) => {
       return (
         <li key={id} className={styles.card}>
-          <img className={styles.image} src={URL.createObjectURL(item.image)} alt={item.name} />
+          <img className={styles.image} src={URL.createObjectURL(item.image[0])} alt={item.name} />
           <div className={styles.name}>
             Name: <span>{item.name.length > 11 ? `${item.name}...` : item.name}</span>
           </div>
@@ -46,14 +47,7 @@ export class CardsForm extends Component<ValidCardFields> {
             </span>
           </div>
           <div>
-            Gender:{' '}
-            <span>
-              {item.gender[0] === '1'
-                ? 'Male'
-                : item.gender[0] === '2'
-                ? 'Female'
-                : 'Optimus Prime'}
-            </span>
+            Gender: <span>{item.gender}</span>
           </div>
         </li>
       );
@@ -62,9 +56,8 @@ export class CardsForm extends Component<ValidCardFields> {
     return <ul className={styles.wrapper}>{items}</ul>;
   };
 
-  render() {
-    const items = this.renderItems(this.props.data);
+  const { data } = props;
+  const items = renderItems(data);
 
-    return <div className={styles.cards}>{items}</div>;
-  }
-}
+  return <div className={styles.cards}>{items}</div>;
+};

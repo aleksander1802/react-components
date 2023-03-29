@@ -23,7 +23,7 @@ export const Search = () => {
   return (
     <form className={cn(styles.search)} onSubmit={(e) => handleSubmit(e)}>
       <Input
-        className={styles.input}
+        className={styles.inputSearch}
         placeholder="Search..."
         value={searchValue}
         onChange={(e) => setSearch(e.target.value)}
