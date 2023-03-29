@@ -1,47 +1,36 @@
-import { SearchProps } from './Search.props';
-
+import { useState } from 'react';
 import cn from 'classnames';
-import { Component } from 'react';
+
 import styles from './Search.module.css';
 import GlassIcon from './glass.svg';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
-export class Search extends Component<SearchProps> {
-  state = {
-    search: localStorage.getItem('data') || '',
+
+export const Search = () => {
+  const initialSearchValue = localStorage.getItem('data') || '';
+
+  const [searchValue, setSearchValue] = useState(initialSearchValue);
+
+  const setSearch = (data: string) => {
+    setSearchValue(data);
+    localStorage.setItem('data', data);
   };
 
-  setSearch = (data: string) => {
-    this.setState({
-      search: data,
-    });
-  };
-
-  componentWillUnmount(): void {
-    localStorage.setItem('data', this.state.search);
-  }
-
-  handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-  }
+  };
 
-  render() {
-    return (
-      <form
-        className={cn(this.props.className, styles.search)}
-        {...this.props}
-        onSubmit={(e) => this.handleSubmit(e)}
-      >
-        <Input
-          className={styles.input}
-          placeholder="Search..."
-          value={this.state.search}
-          onChange={(e) => this.setSearch(e.target.value)}
-        />
-        <Button appearance="primary" className={styles.button} aria-label="Search by site">
-          <img alt="logo" src={GlassIcon} />
-        </Button>
-      </form>
-    );
-  }
-}
+  return (
+    <form className={cn(styles.search)} onSubmit={(e) => handleSubmit(e)}>
+      <Input
+        className={styles.input}
+        placeholder="Search..."
+        value={searchValue}
+        onChange={(e) => setSearch(e.target.value)}
+      />
+      <Button appearance="primary" className={styles.button} aria-label="Search by site">
+        <img alt="logo" src={GlassIcon} />
+      </Button>
+    </form>
+  );
+};
