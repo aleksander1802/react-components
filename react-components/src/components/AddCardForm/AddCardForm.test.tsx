@@ -41,15 +41,13 @@ describe('AddCardForm', () => {
     fireEvent.change(screen.getByLabelText('image'), { target: { value: '' } });
     fireEvent.click(screen.getByRole('button', { name: 'Submit' }));
 
-    expect(
-      screen.getByText(
-        'The first letter must be uppercase. Must be at least 2 characters in length.'
-      )
-    ).toBeInTheDocument();
-    expect(screen.getByText('Required field. Enter the date.')).toBeInTheDocument();
-    expect(screen.getByText('Please select eye color.')).toBeInTheDocument();
-    expect(screen.getByText('Required field. Enter correct value.')).toBeInTheDocument();
-    expect(screen.getByText('Please select messengers.')).toBeInTheDocument();
+    expect(screen.getByText('Required field.')).toBeInTheDocument();
+    expect(screen.getByText('The first letter must be uppercase.')).toBeInTheDocument();
+    expect(screen.getByText('Must be at least 2 characters in length.')).toBeInTheDocument();
+    expect(screen.getByText('Required field. Enter the full date.')).toBeInTheDocument();
+    expect(screen.getByText('Please select an eye color')).toBeInTheDocument();
+    expect(screen.getByText('The value should be between 1 and 100.')).toBeInTheDocument();
+    expect(screen.getByText('Please select one or several messengers.')).toBeInTheDocument();
     expect(screen.getByText('Please select gender.')).toBeInTheDocument();
     expect(screen.getByText('Please select an image.')).toBeInTheDocument();
   });

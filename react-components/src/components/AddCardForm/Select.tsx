@@ -1,13 +1,13 @@
-import { InputProps } from './Input.props';
+import { FormProps } from './AddCardForm.props';
 
 import cn from 'classnames';
 
 import styles from './Input.module.css';
 import { ForwardedRef, forwardRef } from 'react';
 
-export const Input = forwardRef(
+export const SelectHTMLAttributes = forwardRef(
   (
-    { className, error, ...props }: InputProps,
+    { className, error, ...props }: FormProps,
     ref: ForwardedRef<HTMLInputElement>
   ): JSX.Element => {
     return (
@@ -19,6 +19,7 @@ export const Input = forwardRef(
           ref={ref}
           {...props}
         />
+        {error && <span className={styles.errorMessage}>{error.message}</span>}
       </div>
     );
   }

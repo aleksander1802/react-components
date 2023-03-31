@@ -2,7 +2,6 @@ import { ValidCardFields } from './CardsForm.props';
 import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
 import { transformDate } from './dateTransform';
 import React from 'react';
-import { useState } from 'react';
 
 import cn from 'classnames';
 import styles from './CardsForm.module.css';
@@ -12,7 +11,7 @@ export const CardsForm = (props: ValidCardFields) => {
     const items = arr.map((item, id) => {
       return (
         <li key={id} className={styles.card}>
-          <img className={styles.image} src={URL.createObjectURL(item.image[0])} alt={item.name} />
+          <img className={styles.image} src={item.image} alt={item.name} />
           <div className={styles.name}>
             Name: <span>{item.name.length > 11 ? `${item.name}...` : item.name}</span>
           </div>
@@ -37,13 +36,17 @@ export const CardsForm = (props: ValidCardFields) => {
           <div>
             Favorite messengers:{' '}
             <span className={styles.messengers}>
-              {item.messengers.map((m) => {
-                return (
-                  <React.Fragment key={m}>
-                    <span>{m}</span>
-                  </React.Fragment>
-                );
-              })}
+              {typeof item.messengers === 'string' ? (
+                <span>{item.messengers}</span>
+              ) : (
+                item.messengers.map((m) => {
+                  return (
+                    <React.Fragment key={m}>
+                      <span>{m}</span>
+                    </React.Fragment>
+                  );
+                })
+              )}
             </span>
           </div>
           <div>

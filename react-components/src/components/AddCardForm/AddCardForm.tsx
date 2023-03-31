@@ -1,4 +1,4 @@
-import { FormProps } from './AddCardForm.props';
+import { FormProps, ValidFieldsFileList } from './AddCardForm.props';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 import { Htag } from '../../components/Htag/Htag';
@@ -6,11 +6,12 @@ import { SuccessMessage } from '../../components/SuccessMessage/SuccessMessage';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { ValidFields } from './AddCardForm.props';
+import { Select } from '../../components/Select/Select';
+import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 
 import cn from 'classnames';
 
 import styles from './AddCardForm.module.css';
-import classNames from 'classnames';
 
 export const AddCardForm = (props: FormProps) => {
   const {
@@ -18,24 +19,33 @@ export const AddCardForm = (props: FormProps) => {
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ValidFields>();
+  } = useForm<ValidFieldsFileList>({ mode: 'onSubmit' });
 
   const { setDataState } = props;
 
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
-  const options = [{ name: 'Male' }, { name: 'Female' }, { name: 'Optimus Prime' }];
-
-  const eye = ['', 'blue', 'brown', 'green'];
+  const options = ['Male', 'Female', 'Optimus Prime'];
+  const eye = ['blue', 'brown', 'green'];
   const messengers = ['Telegram', 'Viber', 'WhatsApp', 'Skype', 'VK Messenger'];
 
-  const onSubmit = (data: ValidFields) => {
-    console.log(data);
-    setDataState(data);
+  const onSubmit = (data: ValidFieldsFileList) => {
+    const validData: ValidFields = {
+      name: data.name,
+      date: data.date,
+      eye: data.eye,
+      age: data.age,
+      messengers: data.messengers,
+      gender: data.gender,
+      image: URL.createObjectURL(data.image[0]),
+    };
+
+    setDataState(validData);
     setIsSuccess(true);
     setTimeout(() => {
       setIsSuccess(false);
     }, 3000);
+    reset();
   };
 
   return (
@@ -59,8 +69,10 @@ export const AddCardForm = (props: FormProps) => {
                   value: true,
                   message: 'Required field',
                 },
+                pattern: { value: /^[A-Z]/, message: 'The first letter must be uppercase.' },
               })}
             />
+            {errors.name && <ErrorMessage error={errors.name} />}
           </label>
 
           <label htmlFor="date" className={styles.item}>
@@ -69,35 +81,27 @@ export const AddCardForm = (props: FormProps) => {
               id="date"
               type={'date'}
               aria-label="date"
+              className={styles.date}
+              error={errors.date}
               {...register('date', {
                 required: {
                   value: true,
-                  message: 'Required field. Enter the date.',
+                  message: 'Required field. Enter the full date.',
                 },
               })}
-              className={styles.date}
-              error={errors.date}
             />
+            {errors.date && <ErrorMessage error={errors.date} />}
           </label>
 
           <label htmlFor="eye" className={styles.item}>
             <span>Eye color:</span>
-            <select
-              id="eye"
-              aria-label="eye"
-              className={cn(styles.select, {
-                [styles.errorEye]: errors.eye,
-              })}
-              {...register('eye')}
-            >
-              {eye.map((item) => {
-                return (
-                  <option value={item} key={item}>
-                    {item}
-                  </option>
-                );
-              })}
-            </select>
+            <Select
+              register={register}
+              options={eye}
+              label={'eye'}
+              error={errors.eye}
+              errorMesage={'Please select an eye color.'}
+            />
           </label>
 
           <label htmlFor="age" className={styles.item}>
@@ -113,31 +117,42 @@ export const AddCardForm = (props: FormProps) => {
                   value: true,
                   message: 'Required field. Enter correct value.',
                 },
+                pattern: {
+                  value: /^[1-9][0-9]?$|^100$/,
+                  message: 'The value should be between 1 and 100.',
+                },
               })}
             />
+            {errors.age && <ErrorMessage error={errors.age} />}
           </label>
 
           <div className={styles.options}>
             <span>Messengers:</span>
             <div
               className={cn(styles.sex, {
-                [styles.errorMessengers]: errors.messengers,
+                [styles.error]: errors.messengers,
               })}
             >
               {messengers.map((item, i) => {
                 return (
-                  <label key={item} className={styles.option}>
+                  <label key={i} className={styles.option}>
                     <span>{item}</span>
                     <Input
                       id="check"
                       type="checkbox"
-                      {...register('messengers')}
                       aria-label={'messengers' + i}
                       value={item}
+                      {...register(`messengers`, {
+                        required: {
+                          value: true,
+                          message: 'Please select one or several messengers.',
+                        },
+                      })}
                     />
                   </label>
                 );
               })}
+              {errors.messengers && <ErrorMessage error={errors.messengers} />}
             </div>
           </div>
 
@@ -145,20 +160,26 @@ export const AddCardForm = (props: FormProps) => {
             <span>Gender:</span>
             <div
               className={cn(styles.sex, {
-                [styles.errorMessengers]: errors.gender,
+                [styles.error]: errors.gender,
               })}
             >
               {options.map((item, i) => {
                 return (
-                  <label key={item.name} className={styles.option}>
-                    <span>{item.name}</span>
+                  <label key={i} className={styles.option}>
+                    <span>{item}</span>
                     <Input
-                      id="id"
                       type="radio"
                       aria-label={'gender' + i}
-                      {...register('gender')}
-                      value={item.name}
+                      value={item}
+                      error={errors.gender}
+                      {...register('gender', {
+                        required: {
+                          value: true,
+                          message: 'Please select gender.',
+                        },
+                      })}
                     />
+                    {errors.gender && <ErrorMessage error={errors.gender} />}
                   </label>
                 );
               })}
@@ -170,17 +191,16 @@ export const AddCardForm = (props: FormProps) => {
             <Input
               type={'file'}
               accept="image/x-png,image/gif,image/jpeg,image/png"
+              aria-label="image"
+              error={errors.image}
               {...register('image', {
                 required: {
                   value: true,
                   message: 'Required field. Please select an image.',
                 },
               })}
-              id={'imagefield'}
-              aria-label="image"
-              name="image"
-              error={errors.image}
             />
+            {errors.image && <ErrorMessage error={errors.image} />}
           </label>
 
           <Button type="submit" appearance="primary" className={styles.button} role="button">

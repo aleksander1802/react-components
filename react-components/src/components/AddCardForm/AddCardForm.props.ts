@@ -1,5 +1,4 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
-import { FieldError } from 'react-hook-form';
 
 export type SetDataState = {
   setDataState: (data: ValidFields) => void;
@@ -10,7 +9,17 @@ export type ValidFields = {
   date: string;
   eye: string;
   age: string;
-  messengers: string[];
+  messengers: string | string[];
+  gender: string;
+  image: string;
+};
+
+export type ValidFieldsFileList = {
+  name: string;
+  date: string;
+  eye: string;
+  age: string;
+  messengers: string | string[];
   gender: string;
   image: FileList;
 };

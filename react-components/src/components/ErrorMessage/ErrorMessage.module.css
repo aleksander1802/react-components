@@ -1,0 +1,11 @@
+.errorMessage {
+  position: absolute;
+  right: -420px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--crimson);
+  min-width: 400px;
+  height: auto;
+  font-size: 17px;
+  cursor: default;
+}

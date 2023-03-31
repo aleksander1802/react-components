@@ -1,0 +1,38 @@
+.input {
+  padding: 7px 15px;
+  color: var(--black);
+  border: none;
+  outline-color: var(--primary);
+  background: var(--white);
+  box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.05);
+  border-radius: 5px;
+  width: 237px;
+  font-size: 16px;
+  line-height: 22px;
+  font-family: var(--font-family);
+}
+
+.input::placeholder {
+  color: var(--gray);
+}
+
+.inputWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.error {
+  border: 1px solid var(--crimson);
+}
+
+.errorMessage {
+  position: absolute;
+  right: -420px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--crimson);
+  min-width: 400px;
+  height: auto;
+  font-size: 17px;
+  cursor: default;
+}
