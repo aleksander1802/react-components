@@ -1,51 +1,41 @@
+import { useEffect, useState } from 'react';
 import { HeaderProps } from './Header.props';
-import { Component } from 'react';
-
 import cn from 'classnames';
 
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 
-export class Header extends Component<HeaderProps> {
-  state = {
-    title: '',
-  };
+export const Header = ({ className }: HeaderProps) => {
+  const initialValue = '';
 
-  componentDidMount() {
-    this.titleHandle(window.location.pathname);
-  }
+  const [title, setTitle] = useState(initialValue);
 
-  titleHandle(data: string) {
+  const location = useLocation();
+
+  useEffect(() => {
+    titleHandle(location.pathname);
+  }, [location]);
+
+  const titleHandle = (data: string) => {
     switch (data) {
       case '/':
-        return this.setState({
-          title: 'Main',
-        });
+        return setTitle('Main');
       case '/about':
-        return this.setState({
-          title: 'About Us',
-        });
+        return setTitle('About Us');
       case '/form':
-        return this.setState({
-          title: 'Create card',
-        });
+        return setTitle('Create card');
       default:
         return '';
     }
-  }
+  };
 
-  render() {
-    const { className } = this.props;
-    return (
-      <header
-        className={cn(className, styles.header)}
-        onClick={() => this.titleHandle(window.location.pathname)}
-      >
-        <NavLink to="/">Main</NavLink>
-        <NavLink to="/about">About</NavLink>
-        <NavLink to="/form">Create card</NavLink>
-        <span>{this.state.title}</span>
-      </header>
-    );
-  }
-}
+  return (
+    <header className={cn(className, styles.header)} onClick={() => titleHandle(location.pathname)}>
+      <NavLink to="/">Main</NavLink>
+      <NavLink to="/about">About</NavLink>
+      <NavLink to="/form">Create card</NavLink>
+      <span>{title}</span>
+    </header>
+  );
+};
