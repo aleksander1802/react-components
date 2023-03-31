@@ -59,20 +59,21 @@ export const AddCardForm = (props: FormProps) => {
               id="name"
               type={'text'}
               placeholder={'Enter name'}
+              aria-label="name"
               error={errors.name}
               {...register('name', {
+                required: {
+                  value: true,
+                  message: 'Required field.',
+                },
                 minLength: {
                   value: 2,
                   message: 'Must be at least 2 characters in length.',
                 },
-                required: {
-                  value: true,
-                  message: 'Required field',
-                },
                 pattern: { value: /^[A-Z]/, message: 'The first letter must be uppercase.' },
               })}
             />
-            {errors.name && <ErrorMessage error={errors.name} />}
+            {errors.name && <ErrorMessage error={errors.name} data-testid="name-input" />}
           </label>
 
           <label htmlFor="date" className={styles.item}>
@@ -99,6 +100,7 @@ export const AddCardForm = (props: FormProps) => {
               register={register}
               options={eye}
               label={'eye'}
+              aria-label="eye"
               error={errors.eye}
               errorMesage={'Please select an eye color.'}
             />

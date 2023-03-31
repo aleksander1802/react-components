@@ -12,9 +12,7 @@ export const Cards = () => {
   const [loading, setLoading] = useState<boolean>(initialLoading);
 
   useEffect(() => {
-    return () => {
-      onCardsListLoaded(cards);
-    };
+    onCardsListLoaded(cards);
   }, []);
 
   const onCardsListLoaded = (cardsList: CardsProps[]) => {
