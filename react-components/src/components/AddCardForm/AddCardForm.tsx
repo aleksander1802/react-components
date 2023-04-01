@@ -13,15 +13,13 @@ import cn from 'classnames';
 
 import styles from './AddCardForm.module.css';
 
-export const AddCardForm = (props: FormProps) => {
+export const AddCardForm = ({ setDataState }: FormProps) => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ValidFieldsFileList>({ mode: 'onSubmit' });
-
-  const { setDataState } = props;
+  } = useForm<ValidFieldsFileList>({ reValidateMode: 'onSubmit' });
 
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
