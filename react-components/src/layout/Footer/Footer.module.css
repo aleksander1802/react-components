@@ -1,12 +1,33 @@
 .footer {
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: repeat(3, 1fr);
   gap: 10px 40px;
   color: var(--white);
   font-size: 16px;
   line-height: 20px;
   justify-items: center;
+  align-items: center;
   background: var(--primary);
   padding: 25px 30px;
   margin: 0 auto;
+}
+
+.footer h3 {
+  color: black;
+  cursor: default;
+  transition: all 0.5s;
+}
+
+.footer h3:hover {
+  color: white;
+}
+
+.rsschool {
+  width: 100px;
+  height: auto;
+}
+
+.github {
+  width: 40px;
+  height: 40px;
 }

@@ -29,10 +29,11 @@ html {
 
 a {
   text-decoration: none;
+  transition: all 0.5s;
 }
 
 a:hover {
-  color: var(--red-light);
+  color: black;
 }
 
 .active {

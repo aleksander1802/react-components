@@ -1,5 +1,6 @@
 import { FooterProps } from './Footer.props';
 import GitIcon from './github.svg';
+import RSSchoolIcon from './rs_school_js.svg';
 
 import cn from 'classnames';
 
@@ -8,9 +9,12 @@ import styles from './Footer.module.css';
 export const Footer = ({ className }: FooterProps): JSX.Element => {
   return (
     <footer className={cn(className, styles.footer)}>
-      <h3>React Components © 2023 Designed by Aleksander Rudenko</h3>
       <a href="https://github.com/aleksander1802" target="_blank" rel="noreferrer">
-        <img width={40} height={40} src={GitIcon} alt="Github icon" />
+        <img className={styles.github} src={GitIcon} alt="Github icon" />
+      </a>
+      <h3>React Components © 2023 Designed by Aleksander Rudenko</h3>
+      <a href="https://rs.school/" target="_blank" rel="noreferrer">
+        <img className={styles.rsschool} src={RSSchoolIcon} alt="RSSchool icon" />
       </a>
     </footer>
   );
