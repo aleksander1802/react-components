@@ -18,7 +18,6 @@ export const Card = ({ id, closeModal }: CardPropsAPI) => {
       .getSinglePhoto(id)
       .then((data) => {
         setCard(data);
-        localStorage.setItem('lotos', JSON.stringify(data));
       })
       .then(() => setLoading(true));
   }, [id]);
