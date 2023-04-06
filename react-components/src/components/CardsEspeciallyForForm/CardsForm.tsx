@@ -2,7 +2,6 @@ import { ValidCardFields } from './CardsForm.props';
 import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
 import { transformDate } from './dateTransform';
 import React from 'react';
-
 import cn from 'classnames';
 import styles from './CardsForm.module.css';
 

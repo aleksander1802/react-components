@@ -2,6 +2,7 @@ import { DetailedHTMLProps } from 'react';
 
 export type TID = {
   id: string;
+  closeModal?: () => void;
 };
 
 export type CardPropsAPI = DetailedHTMLProps<React.HTMLAttributes<HTMLDivElement>, HTMLDivElement> &

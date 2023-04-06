@@ -3,80 +3,70 @@ import styles from './Card.module.css';
 import { useState, useEffect } from 'react';
 import APIService from '../../services/APIService';
 import { ICard, CardPropsAPI } from './Card.props';
-
+import { Button } from '../../components/Button/Button';
+import CloseIcon from './close_modal.svg';
 import Spinner from '../Spinner/Spinner';
 
-export const Card = ({ id }: CardPropsAPI) => {
+export const Card = ({ id, closeModal }: CardPropsAPI) => {
   const initialLoading = false;
 
   const [card, setCard] = useState<ICard | null>(null);
   const [loading, setLoading] = useState<boolean>(initialLoading);
 
   useEffect(() => {
-    console.log('id');
-
-    // APIService()
-    //   .getSinglePhoto(id)
-    //   .then((data) => {
-    //     setCard(data);
-    //     localStorage.setItem('lotos', JSON.stringify(data));
-    //   })
-    //   .then(() => setLoading(true));
-    setCard(JSON.parse(localStorage.getItem('lotos')!));
-    setLoading(true);
+    APIService()
+      .getSinglePhoto(id)
+      .then((data) => {
+        setCard(data);
+        localStorage.setItem('lotos', JSON.stringify(data));
+      })
+      .then(() => setLoading(true));
   }, [id]);
 
   const renderItems = (arr: ICard) => {
-    const items = (
-      <li className={styles.card} key={arr.id}>
+    return (
+      <div className={styles.card}>
+        <Button appearance="primary" className={styles.close} onClick={closeModal}>
+          <img src={CloseIcon} className={styles.closeModal}></img>
+        </Button>
         <div className={styles.image}>
           <img src={arr.urls.small} alt={arr.alt_description ?? arr.user.name} />
         </div>
         <div className={styles.name}>
-          <span>{arr.user.name}</span>
+          <span>Nickname:</span> <div className={styles.primary}>{arr.user.username}</div>
         </div>
-        {/* <div>
-            Age: <span className={styles.age}>{item.age}</span>
-          </div>
-          <div>
-            Eye color:{' '}
-            <span
-              className={cn(styles.eye, {
-                [styles.green]: item.eyeColor === 'green',
-                [styles.brown]: item.eyeColor === 'brown',
-                [styles.blue]: item.eyeColor === 'blue',
-              })}
-            >
-              {item.eyeColor}
-            </span>
-          </div>
-          <div>
-            Looking for a relationship:{' '}
-            <span
-              className={cn(styles.choice, {
-                [styles.active]: item.isActive,
-                [styles.notactive]: !item.isActive,
-              })}
-            >
-              {item.isActive ? 'Yep' : 'Nope'}
-            </span>
-          </div>
-          <div>
-            Bank account: <span className={styles.balance}>{item.balance}</span>
-          </div>
-          <div>
-            Email: <span>{item.email}</span>
-          </div>
-          <div>
-            Phone: <span>{item.phone}</span>
-          </div> */}
-      </li>
-    );
-
-    return (
-      <ul aria-label="cards" className={styles.wrapper}>
-        {items}
-      </ul>
+        <div>
+          <span>Real name:</span> <div className={styles.primary}>{arr.user.name}</div>
+        </div>
+        <div>
+          <span className={styles.age}>Total likes:</span>{' '}
+          <div className={styles.primary}>{arr.user.total_likes}</div>
+        </div>
+        <div>
+          <span>Looking for a relationship: </span>
+          <span
+            className={cn(styles.choice, {
+              [styles.active]: arr.user.for_hire,
+              [styles.notactive]: !arr.user.for_hire,
+            })}
+          >
+            {arr.user.for_hire ? 'Yep' : 'Nope'}
+          </span>
+        </div>
+        <div>
+          <span>Total photos:</span> <div className={styles.primary}>{arr.user.total_photos}</div>
+        </div>
+        <div>
+          <span>Total collections:</span>{' '}
+          <div className={styles.primary}>{arr.user.total_collections}</div>
+        </div>
+        <div>
+          <span>Profile created:</span>{' '}
+          <span className={styles.primary}>
+            {new Date(arr.created_at).toLocaleDateString('en-GB')}
+          </span>
+        </div>
+      </div>
     );
   };
 
@@ -85,7 +75,7 @@ export const Card = ({ id }: CardPropsAPI) => {
   const content = loading ? items : null;
 
   return (
-    <div className={styles.cards}>
+    <div className={styles.wrapper}>
       {loaded}
       {content}
     </div>

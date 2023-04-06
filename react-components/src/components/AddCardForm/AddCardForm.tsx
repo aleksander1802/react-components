@@ -8,9 +8,7 @@ import { useState } from 'react';
 import { ValidFields } from './AddCardForm.props';
 import { Select } from '../../components/Select/Select';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
-
 import cn from 'classnames';
-
 import styles from './AddCardForm.module.css';
 
 export const AddCardForm = ({ setDataState }: FormProps) => {

@@ -17,6 +17,6 @@
   z-index: 1;
   width: 100vw;
   height: 100vh;
-  background-color: rgba(1, 1, 1, 0.5);
-  animation: slide 200ms ease-out;
+  background-color: rgba(1, 1, 1, 0.8);
+  animation: slide 0.2s linear;
 }

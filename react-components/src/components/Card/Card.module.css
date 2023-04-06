@@ -1,47 +1,41 @@
+.wrapper {
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-auto-rows: minmax(450px, auto);
+  justify-items: center;
+}
+
 .card {
   display: grid;
-  grid-template-rows: 300px 100px;
-  grid-template-columns: 1fr;
-  row-gap: 5px;
+  position: relative;
+  grid-auto-rows: auto;
+  grid-template-columns: 300px 500px;
+  column-gap: 25px;
   align-items: center;
-  background: #00000011;
-  padding: 10px;
+  padding: 20px;
   width: 100%;
-  font-size: 15px;
+  font-size: 18px;
   cursor: default;
   border: 1px solid var(--primary);
   transition: all 0.5s;
+  box-shadow: 0 0px 50px 10px var(--primary);
+  border-radius: 5px;
+  background: radial-gradient(#003, #000);
+  color: goldenrod;
 }
 
 .card div {
-  border-bottom: 1px dotted rgba(0, 0, 0, 0.144);
+  border-bottom: 1px dotted var(--color-alpha);
 }
 
-.card div:last-child,
-.card div:first-child {
+.card div:nth-child(2) {
   border-bottom: none;
-}
-
-.card img {
-  filter: grayscale(100%);
-  transition: all 0.5s;
-}
-
-.card:hover img {
-  filter: grayscale(0%);
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0px 20px 1px var(--primary);
-}
-
-.name {
-  justify-self: center;
 }
 
 .image {
   justify-self: center;
+  grid-column: 1 / 2;
+  grid-row: 1 / 8;
 }
 
 .image img {
@@ -49,6 +43,9 @@
   width: 100%;
   max-height: 300px;
   object-fit: contain;
+  position: relative;
+  border: 2px solid var(--color-alpha);
+  padding: 5px;
 }
 
 .card span {
@@ -67,27 +64,25 @@
   color: crimson;
 }
 
-.balance {
+.primary {
+  display: inline;
   font-weight: bold;
   font-size: 18px;
   color: var(--primary);
 }
 
-.green {
-  color: rgb(26, 146, 42);
+.close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 30px;
+  height: 30px;
 }
 
-.blue {
-  color: rgb(0, 140, 255);
-}
-
-.brown {
-  color: brown;
-}
-
-.nothing {
-  width: 100%;
-  font-size: calc(44px + (16 + 16 * 0.7) * ((100vw - 320px) / 1280));
-  text-align: center;
-  line-height: 100px;
+.close img {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  left: 0;
+  top: 0;
 }
