@@ -1,34 +1,63 @@
-import { CardsProps } from './Cards.props';
-import { cards } from '../../api/cards';
 import cn from 'classnames';
 import styles from './Cards.module.css';
 import { useState, useEffect } from 'react';
+import APIService from '../../services/APIService';
+import { ICards, CardsPropsAPI } from './Cards.props';
+import { Modal } from '../../components/Modal/Modal';
+import { Card } from '../../components/Card/Card';
 
-export const Cards = () => {
-  const initialCardsList: CardsProps[] = [];
-  const initialLoading = true;
+import Spinner from '../../components/Spinner/Spinner';
+import useModal from '../../hooks/modal.hook';
+
+export const Cards = ({ query }: CardsPropsAPI) => {
+  const initialCardsList: ICards[] = [];
+  const initialLoading = false;
 
   const [cardsList, setCardsList] = useState(initialCardsList);
+  const [currentID, setCurrentID] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(initialLoading);
+  const [isShowingModal, toggleModal] = useModal();
 
   useEffect(() => {
-    onCardsListLoaded(cards);
-  }, []);
+    console.log('request');
 
-  const onCardsListLoaded = (cardsList: CardsProps[]) => {
-    setCardsList([...cardsList]);
-    setLoading(false);
-  };
+    if (query !== '') {
+      console.log('query');
+      setLoading(false);
+      APIService()
+        .searchPhotos(query)
+        .then((data) => {
+          setCardsList(data);
+        })
+        .then(() => setLoading(true));
+    } else {
+      APIService()
+        .getAllPhotos()
+        .then((data) => setCardsList(data))
+        .then(() => setLoading(true));
+    }
+  }, [query]);
 
-  const renderItems = (arr: CardsProps[]) => {
+  const renderItems = (arr: ICards[]) => {
+    const limitPerPage = 8;
+    arr.length = limitPerPage;
     const items = arr.map((item) => {
       return (
-        <li className={styles.card} key={item._id}>
-          <img loading="lazy" src={item.url} alt={item.name} className={styles.image} />
-          <div className={styles.name}>
-            Name: <span>{item.name}</span>
+        <li
+          className={styles.card}
+          key={item.id}
+          onClick={() => {
+            toggleModal();
+            setCurrentID(item.id);
+          }}
+        >
+          <div className={styles.image}>
+            <img src={item.urls.small} alt={item.alt_description ?? item.user.name} />
           </div>
-          <div>
+          <div className={styles.name}>
+            <span>{item.user.name}</span>
+          </div>
+          {/* <div>
             Age: <span className={styles.age}>{item.age}</span>
           </div>
           <div>
@@ -62,7 +91,7 @@ export const Cards = () => {
           </div>
           <div>
             Phone: <span>{item.phone}</span>
-          </div>
+          </div> */}
         </li>
       );
     });
@@ -74,8 +103,25 @@ export const Cards = () => {
     );
   };
 
-  const items = renderItems(cardsList);
-  const content = !loading ? items : null;
+  const NothingFound = () => {
+    return (
+      <div className={styles.nothing}>
+        <span>It looks like nothing was found...</span>
+      </div>
+    );
+  };
 
-  return <div className={styles.cards}>{content}</div>;
+  const items = cardsList.length === 0 ? <NothingFound /> : renderItems(cardsList);
+  const loaded = !loading ? <Spinner /> : null;
+  const content = loading ? items : null;
+
+  return (
+    <div className={styles.cards}>
+      {loaded}
+      {content}
+      <Modal show={isShowingModal} onCloseButtonClick={toggleModal}>
+        <Card id={currentID!} />
+      </Modal>
+    </div>
+  );
 };

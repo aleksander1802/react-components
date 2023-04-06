@@ -1,14 +1,14 @@
 import { MutableRefObject, useEffect, useState } from 'react';
 import cn from 'classnames';
-
+import { SearchProps } from './Search.props';
 import styles from './Search.module.css';
 import GlassIcon from './glass.svg';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
 import { useRef } from 'react';
 
-export const Search = () => {
-  const initialSearch = localStorage.getItem('search') || '';
+export const Search = ({ search, query }: SearchProps) => {
+  const initialSearch = query;
   const [searchValue, setSearchValue] = useState(initialSearch);
   const searchRef = useRef() as MutableRefObject<HTMLInputElement>;
 
@@ -26,6 +26,8 @@ export const Search = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    search(searchValue);
   };
 
   return (

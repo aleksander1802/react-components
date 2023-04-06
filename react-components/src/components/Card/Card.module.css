@@ -1,17 +1,3 @@
-.cards {
-  margin: 30px auto 30px;
-}
-
-.wrapper {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(283px, 1200px));
-  grid-auto-rows: minmax(350px, auto);
-  min-height: 100vh;
-  gap: 40px 30px;
-  list-style-type: none;
-  justify-items: center;
-}
-
 .card {
   display: grid;
   grid-template-rows: 300px 100px;

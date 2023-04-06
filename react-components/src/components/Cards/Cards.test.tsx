@@ -6,7 +6,7 @@ import { cards } from '../../api/cards';
 
 describe('Cards component render', () => {
   test('Cards component rendered', () => {
-    const cards = render(<Cards />);
+    const cards = render(<Cards query={''} />);
 
     expect(cards).toBeTruthy();
     expect(cards).toBeDefined();
@@ -14,7 +14,7 @@ describe('Cards component render', () => {
 });
 
 it('should return list of 60 cards', () => {
-  render(<Cards />);
+  render(<Cards query={''} />);
   const list = screen.getByRole('list', {
     name: /cards/i,
   });
