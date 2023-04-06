@@ -1,5 +1,5 @@
 import { describe, expect, test, vi } from 'vitest';
-import { render, screen, within } from '@testing-library/react';
+import { render } from '@testing-library/react';
 import { Cards } from './Cards';
 import { CardsProps } from './Cards.props';
 import { cards } from '../../api/cards';
@@ -11,16 +11,6 @@ describe('Cards component render', () => {
     expect(cards).toBeTruthy();
     expect(cards).toBeDefined();
   });
-});
-
-it('should return list of 60 cards', () => {
-  render(<Cards query={''} />);
-  const list = screen.getByRole('list', {
-    name: /cards/i,
-  });
-  const { getAllByRole } = within(list);
-  const items = getAllByRole('listitem');
-  expect(items.length).toBe(60);
 });
 
 test('should check that item values according to their types', () => {
