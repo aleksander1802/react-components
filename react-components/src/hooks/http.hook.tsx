@@ -1,12 +1,16 @@
+export type IHeaders = {
+  'Content-Type': string;
+  'Accept-Version'?: string;
+  Authorization?: string;
+};
+
 export const useHttp = () => {
   const request = async (
     url: string,
     method = 'GET',
     body: null | string = null,
-    headers: { 'Content-Type': string; 'Accept-Version': string; Authorization: string } = {
+    headers: IHeaders = {
       'Content-Type': 'application/json',
-      'Accept-Version': 'v1',
-      Authorization: 'Client-ID cqxhz4yPLc38f0dhx5sm4fHoLk1-iDQwK0qiYPdn2Dw',
     }
   ) => {
     try {
@@ -16,9 +20,7 @@ export const useHttp = () => {
         throw new Error(`Could not fetch ${url}, status: ${response.status}`);
       }
 
-      const data = await response.json();
-
-      return data;
+      return response;
     } catch (e) {
       throw e;
     }

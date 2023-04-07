@@ -4,23 +4,36 @@ import { ICard } from '../components/Card/Card.props';
 
 const APIService = () => {
   const { request } = useHttp();
+  const headers = {
+    'Content-Type': 'application/json',
+    'Accept-Version': 'v1',
+    Authorization: 'Client-ID cqxhz4yPLc38f0dhx5sm4fHoLk1-iDQwK0qiYPdn2Dw',
+  };
 
   const _apiBase = 'https://api.unsplash.com/';
 
   const getAllPhotos = async () => {
-    const res = (await request(`${_apiBase}photos?page=1`)) as ICards[];
+    const req = await request(`${_apiBase}photos?page=1`, 'GET', null, headers);
+    const res: ICards[] = await req.json();
 
     return res;
   };
 
   const searchPhotos = async (query: string) => {
-    const res: ISearchResults = await request(`${_apiBase}search/photos?page=1&query=${query}`);
+    const req = await request(
+      `${_apiBase}search/photos?page=1&query=${query}`,
+      'GET',
+      null,
+      headers
+    );
+    const res: ISearchResults = await req.json();
 
     return res.results;
   };
 
   const getSinglePhoto = async (id: string) => {
-    const res: ICard = await request(`${_apiBase}photos/${id}`);
+    const req = await request(`${_apiBase}photos/${id}`, 'GET', null, headers);
+    const res: ICard = await req.json();
 
     return res;
   };
