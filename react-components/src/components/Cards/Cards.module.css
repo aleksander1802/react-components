@@ -18,7 +18,7 @@
   grid-template-columns: 1fr;
   row-gap: 5px;
   align-items: center;
-  background: #00000011;
+  background: #00000010;
   padding: 10px;
   width: 100%;
   font-size: 15px;
@@ -38,7 +38,7 @@
 
 .card img {
   filter: grayscale(100%);
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 
 .card:hover img {
@@ -48,7 +48,43 @@
 .card:hover {
   transform: translateY(-10px);
   box-shadow: 0 0px 20px 1px var(--primary);
-  background: radial-gradient(rgb(0, 0, 85), #000);
+  animation: gradient 0.2s forwards;
+}
+
+@keyframes gradient {
+  0% {
+    background: radial-gradient(rgba(0, 0, 85, 0), #ffffff);
+  }
+  10% {
+    background: radial-gradient(rgba(0, 0, 85, 0.1), #dadada);
+  }
+  20% {
+    background: radial-gradient(rgba(0, 0, 85, 0.2), #b6b6b6);
+  }
+  30% {
+    background: radial-gradient(rgba(0, 0, 85, 0.3), #979797);
+  }
+  40% {
+    background: radial-gradient(rgba(0, 0, 85, 0.4), #858585);
+  }
+  50% {
+    background: radial-gradient(rgba(0, 0, 85, 0.5), #666666);
+  }
+  60% {
+    background: radial-gradient(rgba(0, 0, 85, 0.6), #585858);
+  }
+  70% {
+    background: radial-gradient(rgba(0, 0, 85, 0.7), #3f3f3f);
+  }
+  80% {
+    background: radial-gradient(rgba(0, 0, 85, 0.8), #1f1f1f);
+  }
+  90% {
+    background: radial-gradient(rgba(0, 0, 85, 0.9), #000);
+  }
+  100% {
+    background: radial-gradient(rgba(0, 0, 85), #000);
+  }
 }
 
 .card:hover .name {

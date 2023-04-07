@@ -40,16 +40,11 @@
 
 .card img {
   filter: grayscale(100%);
-  transition: all 0.5s;
+  transition: all 0.2s;
 }
 
 .card:hover img {
   filter: grayscale(0%);
-}
-
-.card:hover {
-  transform: translateY(-10px);
-  box-shadow: 0 0px 20px 1px var(--primary);
 }
 
 .image {
@@ -78,4 +73,16 @@
 
 .brown {
   color: brown;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 0px 20px 1px var(--primary);
+  background: radial-gradient(rgb(196, 196, 196), #000);
+  color: white;
+}
+
+.card:hover span {
+  text-shadow: 0 0 3px crimson;
+  color: white;
 }
