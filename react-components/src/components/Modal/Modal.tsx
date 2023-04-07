@@ -9,6 +9,7 @@ export const Modal = ({ show, onCloseButtonClick, children }: IModalProps) => {
 
   const portal = ReactDOM.createPortal(
     <div
+      data-testid="modal-overlay"
       className={styles.overlay}
       onClick={(e: React.MouseEvent) => {
         const target = e.target as HTMLElement;
