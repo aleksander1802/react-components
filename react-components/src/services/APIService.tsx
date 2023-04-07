@@ -1,5 +1,6 @@
 import { useHttp } from '../hooks/http.hook';
 import { ICards, ISearchResults } from '../components/Cards/Cards.props';
+import { ICard } from '../components/Card/Card.props';
 
 const APIService = () => {
   const { request } = useHttp();
@@ -19,7 +20,7 @@ const APIService = () => {
   };
 
   const getSinglePhoto = async (id: string) => {
-    const res = await request(`${_apiBase}photos/${id}`);
+    const res: ICard = await request(`${_apiBase}photos/${id}`);
 
     return res;
   };
