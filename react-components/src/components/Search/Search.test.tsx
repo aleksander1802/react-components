@@ -4,7 +4,7 @@ import { Search } from './Search';
 
 describe('<Search/>', () => {
   test('Search rendered', () => {
-    const search = render(<Search query="d" search={vi.fn()} />);
+    const search = render(<Search query="" search={vi.fn()} />);
     expect(search).toBeTruthy();
     expect(search).toBeDefined();
   });

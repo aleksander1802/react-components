@@ -11,7 +11,7 @@ describe('should render Cards and Search components', () => {
     expect(cards).toBeDefined();
   });
   test('<Search /> component rendered', () => {
-    const search = render(<Search query="d" search={vi.fn()} />);
+    const search = render(<Search query="" search={vi.fn()} />);
     expect(search).toBeTruthy();
     expect(search).toBeDefined();
   });
