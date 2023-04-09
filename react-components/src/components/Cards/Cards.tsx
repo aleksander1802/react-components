@@ -17,21 +17,25 @@ export const Cards = ({ query }: CardsPropsAPI) => {
   const [isShowingModal, toggleModal] = useModal();
 
   useEffect(() => {
-    if (query !== '') {
-      setLoading(false);
-      APIService()
-        .searchPhotos(query)
-        .then((data) => {
-          setCardsList(data);
-        })
-        .then(() => setLoading(true));
-    } else {
-      APIService()
-        .getAllPhotos()
-        .then((data) => setCardsList(data))
-        .then(() => setLoading(true));
-    }
+    query === '' ? getAllItems() : getSearchedItems(query);
   }, [query]);
+
+  const getAllItems = () => {
+    APIService()
+      .getAllPhotos()
+      .then((data) => setCardsList(data))
+      .then(() => setLoading(true));
+  };
+
+  const getSearchedItems = (query: string) => {
+    setLoading(false);
+    APIService()
+      .searchPhotos(query)
+      .then((data) => {
+        setCardsList(data);
+      })
+      .then(() => setLoading(true));
+  };
 
   const renderItems = (arr: ICards[]) => {
     const limitPerPage = 8;
