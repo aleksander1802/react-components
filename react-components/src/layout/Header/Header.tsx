@@ -1,41 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { HeaderProps } from './Header.props';
 import cn from 'classnames';
 
 import styles from './Header.module.css';
 import { NavLink } from 'react-router-dom';
 import { useLocation } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+
+import { RootState, AppDispatch } from '../../store/store';
+
+import { setTitle, titleHandle } from './headerSlice';
 
 export const Header = ({ className }: HeaderProps) => {
-  const initialValue = '';
+  const headerSelector = useSelector((state: RootState) => state.header.title);
 
-  const [title, setTitle] = useState(initialValue);
-
+  const dispatch = useDispatch<AppDispatch>();
   const location = useLocation();
 
   useEffect(() => {
-    titleHandle(location.pathname);
-  }, [location]);
-
-  const titleHandle = (data: string) => {
-    switch (data) {
-      case '/':
-        return setTitle('Main');
-      case '/about':
-        return setTitle('About Us');
-      case '/form':
-        return setTitle('Create card');
-      default:
-        return '';
-    }
-  };
+    const newTitle = titleHandle(location.pathname);
+    dispatch(setTitle(newTitle));
+  }, [dispatch, location]);
 
   return (
-    <header className={cn(className, styles.header)} onClick={() => titleHandle(location.pathname)}>
+    <header className={cn(className, styles.header)}>
       <NavLink to="/">Main</NavLink>
       <NavLink to="/about">About</NavLink>
       <NavLink to="/form">Create card</NavLink>
-      <span>{title}</span>
+      <span>{headerSelector}</span>
     </header>
   );
 };
