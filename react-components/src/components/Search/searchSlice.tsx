@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-
 import { SearchValue } from './Search.props';
 
 const initialState: SearchValue = {

@@ -1,12 +1,14 @@
-import { ValidCardFields } from './CardsForm.props';
-import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
+import { FormCard } from '../../components/AddCardForm/AddCardForm.props';
 import { transformDate } from './dateTransform';
 import React from 'react';
 import cn from 'classnames';
 import styles from './CardsForm.module.css';
+import { useAppSelector } from '../../hooks/dispatch.hook';
 
-export const CardsForm = (props: ValidCardFields) => {
-  const renderItems = (arr: ValidFields[]) => {
+export const CardsForm = () => {
+  const form = useAppSelector((state) => state.form);
+
+  const renderItems = (arr: FormCard[]) => {
     const items = arr.map((item, id) => {
       return (
         <li key={id} className={styles.card}>
@@ -58,8 +60,7 @@ export const CardsForm = (props: ValidCardFields) => {
     return <ul className={styles.wrapper}>{items}</ul>;
   };
 
-  const { data } = props;
-  const items = renderItems(data);
+  const items = form && renderItems(form);
 
   return <div className={styles.cards}>{items}</div>;
 };

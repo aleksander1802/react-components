@@ -1,12 +1,10 @@
 import styles from './Cards.module.css';
 import { useState, useEffect } from 'react';
-
 import { ICards } from './Cards.props';
 import { Modal } from '../../components/Modal/Modal';
 import { Card } from '../../components/Card/Card';
 import Spinner from '../../components/Spinner/Spinner';
 import useModal from '../../hooks/modal.hook';
-
 import { fetchCards } from './cardsSlice';
 
 import { useAppSelector, useAppDispatch } from '../../hooks/dispatch.hook';

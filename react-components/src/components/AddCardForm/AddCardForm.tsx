@@ -1,32 +1,35 @@
-import { FormProps, ValidFieldsFileList } from './AddCardForm.props';
+import { FormFields } from './AddCardForm.props';
 import { Input } from '../../components/Input/Input';
 import { Button } from '../../components/Button/Button';
 import { Htag } from '../../components/Htag/Htag';
 import { SuccessMessage } from '../../components/SuccessMessage/SuccessMessage';
 import { useForm } from 'react-hook-form';
 import { useState } from 'react';
-import { ValidFields } from './AddCardForm.props';
+import { FormCard } from './AddCardForm.props';
 import { Select } from '../../components/Select/Select';
 import { ErrorMessage } from '../../components/ErrorMessage/ErrorMessage';
 import cn from 'classnames';
 import styles from './AddCardForm.module.css';
+import { setForm } from '../../components/CardsEspeciallyForForm/formSlice';
+import { useAppDispatch } from '../../hooks/dispatch.hook';
 
-export const AddCardForm = ({ setDataState }: FormProps) => {
+export const AddCardForm = () => {
   const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
-  } = useForm<ValidFieldsFileList>({ reValidateMode: 'onSubmit' });
+  } = useForm<FormFields>({ reValidateMode: 'onSubmit' });
 
   const [isSuccess, setIsSuccess] = useState<boolean>(false);
 
   const options = ['Male', 'Female', 'Optimus Prime'];
   const eye = ['blue', 'brown', 'green'];
   const messengers = ['Telegram', 'Viber', 'WhatsApp', 'Skype', 'VK Messenger'];
+  const dispatch = useAppDispatch();
 
-  const onSubmit = (data: ValidFieldsFileList) => {
-    const validData: ValidFields = {
+  const onSubmit = (data: FormFields) => {
+    const validData: FormCard = {
       name: data.name,
       date: data.date,
       eye: data.eye,
@@ -35,8 +38,8 @@ export const AddCardForm = ({ setDataState }: FormProps) => {
       gender: data.gender,
       image: URL.createObjectURL(data.image[0]),
     };
+    dispatch(setForm(validData));
 
-    setDataState(validData);
     setIsSuccess(true);
     setTimeout(() => {
       setIsSuccess(false);

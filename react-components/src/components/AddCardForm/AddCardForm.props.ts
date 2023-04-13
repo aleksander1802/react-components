@@ -1,10 +1,10 @@
 import { DetailedHTMLProps, InputHTMLAttributes } from 'react';
 
 export type SetDataState = {
-  setDataState: (data: ValidFields) => void;
+  setDataState: (data: FormCard) => void;
 };
 
-export type ValidFields = {
+export type FormCard = {
   name: string;
   date: string;
   eye: string;
@@ -14,7 +14,7 @@ export type ValidFields = {
   image: string;
 };
 
-export type ValidFieldsFileList = {
+export type FormFields = {
   name: string;
   date: string;
   eye: string;

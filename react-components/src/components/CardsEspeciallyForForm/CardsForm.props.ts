@@ -1,5 +1,5 @@
-import { ValidFields } from '../../components/AddCardForm/AddCardForm.props';
+import { FormCard } from '../../components/AddCardForm/AddCardForm.props';
 
 export type ValidCardFields = {
-  data: ValidFields[];
+  data: FormCard[];
 };

@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-
 import APIService from '../../services/APIService';
 import { IInitialCards } from './Cards.props';
 
