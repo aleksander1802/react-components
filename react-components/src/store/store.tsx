@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit';
-import headerReducer from '../layout/Header/headerSlice';
+import cardsReducer from '../components/Cards/cardsSlice';
+import searchReducer from '../components/Search/searchSlice';
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;
 export const store = configureStore({
   reducer: {
-    header: headerReducer,
+    allCards: cardsReducer,
+    searchValue: searchReducer,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
   devTools: process.env.NODE_ENV !== 'production',

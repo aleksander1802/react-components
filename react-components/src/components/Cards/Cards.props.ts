@@ -33,6 +33,11 @@ export interface ISearchResults {
   results: ICards[];
 }
 
+export interface IInitialCards {
+  cards: ICards[];
+  loading: boolean;
+}
+
 export interface ICards {
   id: string;
   created_at: Date;

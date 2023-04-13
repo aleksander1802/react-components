@@ -3,7 +3,7 @@ import { Search } from '../../components/Search/Search';
 import { useState } from 'react';
 
 const MainPage = () => {
-  const initialSearch = localStorage.getItem('search') || '';
+  const initialSearch = '';
   const [searchValue, setSearchValue] = useState(initialSearch);
 
   const search = (query: string) => {
@@ -11,8 +11,8 @@ const MainPage = () => {
   };
   return (
     <>
-      <Search search={search} query={searchValue} />
-      <Cards query={searchValue} />
+      <Search />
+      <Cards />
     </>
   );
 };

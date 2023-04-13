@@ -1,33 +1,28 @@
-import { MutableRefObject, useEffect, useState } from 'react';
+import { useRef, useState } from 'react';
 import cn from 'classnames';
-import { SearchProps } from './Search.props';
+
 import styles from './Search.module.css';
 import GlassIcon from './glass.svg';
 import { Input } from '../Input/Input';
 import { Button } from '../Button/Button';
-import { useRef } from 'react';
+import { setSearch } from './searchSlice';
 
-export const Search = ({ search, query }: SearchProps) => {
-  const initialSearch = query;
-  const [searchValue, setSearchValue] = useState(initialSearch);
-  const searchRef = useRef() as MutableRefObject<HTMLInputElement>;
+import { useAppSelector, useAppDispatch } from '../../hooks/dispatch.hook';
 
-  useEffect(() => {
-    const currentRefValue = searchRef.current;
+export const Search = () => {
+  const search = useAppSelector((state) => state.searchValue.search);
+  const [value, setValue] = useState<string>(search);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const dispatch = useAppDispatch();
 
-    return () => {
-      localStorage.setItem('search', currentRefValue.value);
-    };
-  }, []);
-
-  const setSearch = (data: string) => {
-    setSearchValue(data);
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const input = inputRef.current!.value;
+    dispatch(setSearch(input));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-
-    search(searchValue);
+  const setSearchValue = () => {
+    inputRef.current && setValue(inputRef.current.value);
   };
 
   return (
@@ -35,9 +30,9 @@ export const Search = ({ search, query }: SearchProps) => {
       <Input
         className={styles.inputSearch}
         placeholder="Search..."
-        value={searchValue}
-        ref={searchRef}
-        onChange={(e) => setSearch(e.target.value)}
+        value={value}
+        onChange={setSearchValue}
+        ref={inputRef}
       />
       <Button appearance="primary" className={styles.button} aria-label="Search by site">
         <img alt="logo" src={GlassIcon} />

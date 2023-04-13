@@ -1,45 +1,30 @@
 import styles from './Cards.module.css';
 import { useState, useEffect } from 'react';
-import APIService from '../../services/APIService';
-import { ICards, CardsPropsAPI } from './Cards.props';
+
+import { ICards } from './Cards.props';
 import { Modal } from '../../components/Modal/Modal';
 import { Card } from '../../components/Card/Card';
 import Spinner from '../../components/Spinner/Spinner';
 import useModal from '../../hooks/modal.hook';
 
-export const Cards = ({ query }: CardsPropsAPI) => {
-  const initialCardsList: ICards[] = [];
-  const initialLoading = false;
+import { fetchCards } from './cardsSlice';
 
-  const [cardsList, setCardsList] = useState(initialCardsList);
+import { useAppSelector, useAppDispatch } from '../../hooks/dispatch.hook';
+export const Cards = () => {
+  const cards = useAppSelector((state) => state.allCards.cards);
+  const loading = useAppSelector((state) => state.allCards.loading);
+  const search = useAppSelector((state) => state.searchValue.search);
+
   const [currentID, setCurrentID] = useState<string | null>(null);
-  const [loading, setLoading] = useState<boolean>(initialLoading);
   const [isShowingModal, toggleModal] = useModal();
 
+  const dispatch = useAppDispatch();
+
   useEffect(() => {
-    query === '' ? getAllItems() : getSearchedItems(query);
-  }, [query]);
-
-  const getAllItems = () => {
-    APIService()
-      .getAllPhotos()
-      .then((data) => setCardsList(data))
-      .then(() => setLoading(true));
-  };
-
-  const getSearchedItems = (query: string) => {
-    setLoading(false);
-    APIService()
-      .searchPhotos(query)
-      .then((data) => {
-        setCardsList(data);
-      })
-      .then(() => setLoading(true));
-  };
+    dispatch(fetchCards(search));
+  }, [dispatch, search]);
 
   const renderItems = (arr: ICards[]) => {
-    const limitPerPage = 8;
-    arr.length = limitPerPage;
     const items = arr.map((item) => {
       return (
         <li
@@ -75,7 +60,7 @@ export const Cards = ({ query }: CardsPropsAPI) => {
     );
   };
 
-  const items = cardsList.length === 0 ? <NothingFound /> : renderItems(cardsList);
+  const items = cards.length === 0 ? <NothingFound /> : renderItems(cards);
   const loaded = !loading ? <Spinner /> : null;
   const content = loading ? items : null;
 
