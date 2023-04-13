@@ -23,7 +23,8 @@ export const Cards = () => {
   }, [dispatch, search]);
 
   const renderItems = (arr: ICards[]) => {
-    const items = arr.map((item) => {
+    const limitLength = [...arr].slice(0, 8);
+    const items = limitLength.map((item) => {
       return (
         <li
           className={styles.card}
