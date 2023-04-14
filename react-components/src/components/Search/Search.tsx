@@ -33,6 +33,7 @@ export const Search = () => {
         value={value}
         onChange={setSearchValue}
         ref={inputRef}
+        aria-label="Search..."
       />
       <Button appearance="primary" className={styles.button} aria-label="Search by site">
         <img alt="logo" src={GlassIcon} />

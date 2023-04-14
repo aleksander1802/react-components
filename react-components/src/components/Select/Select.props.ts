@@ -1,9 +1,9 @@
 import { FieldError, UseFormRegister, Path } from 'react-hook-form';
-import { ValidFieldsFileList } from '../../components/AddCardForm/AddCardForm.props';
+import { FormFields } from '../../components/AddCardForm/AddCardForm.props';
 
 export interface SelectProps {
-  label: Path<ValidFieldsFileList>;
-  register: UseFormRegister<ValidFieldsFileList>;
+  label: Path<FormFields>;
+  register: UseFormRegister<FormFields>;
   options: string[];
   errorMesage: string;
   error?: FieldError;

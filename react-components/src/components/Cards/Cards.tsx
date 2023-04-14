@@ -29,6 +29,7 @@ export const Cards = () => {
         <li
           className={styles.card}
           key={item.id}
+          aria-label="cards"
           onClick={() => {
             toggleModal();
             setCurrentID(item.id);
@@ -44,11 +45,7 @@ export const Cards = () => {
       );
     });
 
-    return (
-      <ul aria-label="cards" className={styles.wrapper}>
-        {items}
-      </ul>
-    );
+    return <ul className={styles.wrapper}>{items}</ul>;
   };
 
   const NothingFound = () => {

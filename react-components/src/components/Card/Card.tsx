@@ -25,7 +25,12 @@ export const Card = ({ id, closeModal }: CardPropsAPI) => {
   const renderItems = (arr: ICard) => {
     return (
       <div className={styles.card}>
-        <Button appearance="primary" className={styles.close} onClick={closeModal}>
+        <Button
+          appearance="primary"
+          className={styles.close}
+          onClick={closeModal}
+          aria-label="close"
+        >
           <img src={CloseIcon} className={styles.closeModal}></img>
         </Button>
         <div className={styles.image}>

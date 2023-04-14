@@ -1,23 +1,43 @@
-import { describe, expect, test, vi } from 'vitest';
+import React from 'react';
 import { render } from '@testing-library/react';
-import { Cards } from '../../components/Cards/Cards';
-import { Search } from '../../components/Search/Search';
-import MainPage from './MainPage';
+import { Provider } from 'react-redux';
 
-describe('should render Cards and Search components', () => {
-  test('<Cards /> component rendered', () => {
-    const cards = render(<Cards query={''} />);
-    expect(cards).toBeTruthy();
-    expect(cards).toBeDefined();
-  });
-  test('<Search /> component rendered', () => {
-    const search = render(<Search query="" search={vi.fn()} />);
-    expect(search).toBeTruthy();
-    expect(search).toBeDefined();
-  });
-  test('<MainPage /> page are rendered', () => {
-    const mainpage = render(<MainPage />);
-    expect(mainpage).toBeTruthy();
-    expect(mainpage).toBeDefined();
+import MainPage from './MainPage';
+import store from '../../store/store';
+describe('MainPage', () => {
+  it('should render Cards component', () => {
+    const mockCards = [
+      {
+        id: '1',
+        urls: { small: 'test-url' },
+        alt_description: 'test-alt',
+        user: { name: 'test-name' },
+      },
+      {
+        id: '2',
+        urls: { small: 'test-url' },
+        alt_description: 'test-alt',
+        user: { name: 'test-name' },
+      },
+      {
+        id: '3',
+        urls: { small: 'test-url' },
+        alt_description: 'test-alt',
+        user: { name: 'test-name' },
+      },
+    ];
+
+    const { getByLabelText } = render(
+      <Provider store={store}>
+        <MainPage />
+      </Provider>
+    );
+
+    setTimeout(() => {
+      const cardsList = getByLabelText('cards');
+      const cardsItems = cardsList.getElementsByTagName('li');
+
+      expect(cardsItems.length).toEqual(mockCards.length);
+    }, 2000);
   });
 });

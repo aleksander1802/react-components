@@ -13,6 +13,7 @@ export const Input = forwardRef(
     return (
       <div className={styles.inputWrapper}>
         <input
+          data-testid="input"
           className={cn(className, styles.input, {
             [styles.error]: error,
           })}
