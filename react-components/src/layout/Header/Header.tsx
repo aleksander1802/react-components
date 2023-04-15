@@ -32,9 +32,15 @@ export const Header = ({ className }: HeaderProps) => {
 
   return (
     <header className={cn(className, styles.header)} onClick={() => titleHandle(location.pathname)}>
-      <NavLink to="/">Main</NavLink>
-      <NavLink to="/about">About</NavLink>
-      <NavLink to="/form">Create card</NavLink>
+      <NavLink to="/" role="link">
+        Main
+      </NavLink>
+      <NavLink to="/about" role="link">
+        About
+      </NavLink>
+      <NavLink to="/form" role="link">
+        Create card
+      </NavLink>
       <span>{title}</span>
     </header>
   );
