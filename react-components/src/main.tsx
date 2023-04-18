@@ -1,9 +1,13 @@
+import './styles/global.css';
 import ReactDOM from 'react-dom/client';
 import App from './App';
-import './styles/global.css';
-import store from './store/store';
 import { Provider } from 'react-redux';
-ReactDOM.createRoot(document.getElementById('root') as HTMLElement).render(
+import store from './store/store';
+
+const root = document.getElementById('root') as HTMLElement;
+
+ReactDOM.hydrateRoot(
+  root,
   <Provider store={store}>
     <App />
   </Provider>
