@@ -45,13 +45,17 @@ export const Cards = () => {
       );
     });
 
-    return <ul className={styles.wrapper}>{items}</ul>;
+    return (
+      <ul className={styles.wrapper} data-testid="cardsWrapper">
+        {items}
+      </ul>
+    );
   };
 
   const NothingFound = () => {
     return (
       <div className={styles.nothing}>
-        <span>It looks like nothing was found...</span>
+        <span aria-label="notFoundCards">It looks like nothing was found...</span>
       </div>
     );
   };

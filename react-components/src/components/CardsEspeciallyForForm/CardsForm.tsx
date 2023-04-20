@@ -1,5 +1,4 @@
 import { FormCard } from '../../components/AddCardForm/AddCardForm.props';
-import { transformDate } from './dateTransform';
 import React from 'react';
 import cn from 'classnames';
 import styles from './CardsForm.module.css';
@@ -12,15 +11,19 @@ export const CardsForm = () => {
     const items = arr.map((item, id) => {
       return (
         <li key={id} className={styles.card}>
-          <img className={styles.image} src={item.image} alt={item.name} />
+          <img className={styles.image} src={item.image} alt={item.name} aria-label="spanImage" />
           <div className={styles.name}>
-            Name: <span>{item.name.length > 11 ? `${item.name}...` : item.name}</span>
+            Name: <span aria-label="spanName">{item.name.slice(0, 10)}</span>
           </div>
           <div>
-            Birthday: <span>{transformDate(item.date)}</span>
+            Birthday:{' '}
+            <span aria-label="spanBirthday">{new Date(item.date).toLocaleDateString('en-GB')}</span>
           </div>
           <div>
-            Age: <span className={styles.age}>{item.age}</span>
+            Age:{' '}
+            <span className={styles.age} aria-label="spanAge">
+              {item.age}
+            </span>
           </div>
           <div>
             Eye color:{' '}
@@ -30,6 +33,7 @@ export const CardsForm = () => {
                 [styles.brown]: item.eye === 'brown',
                 [styles.blue]: item.eye === 'blue',
               })}
+              aria-label="spanEyeColor"
             >
               {item.eye}
             </span>
@@ -43,7 +47,7 @@ export const CardsForm = () => {
                 item.messengers.map((m) => {
                   return (
                     <React.Fragment key={m}>
-                      <span>{m}</span>
+                      <span aria-label="spanMessenger">{m}</span>
                     </React.Fragment>
                   );
                 })
@@ -51,16 +55,24 @@ export const CardsForm = () => {
             </span>
           </div>
           <div>
-            Gender: <span>{item.gender}</span>
+            Gender: <span aria-label="spanGender">{item.gender}</span>
           </div>
         </li>
       );
     });
 
-    return <ul className={styles.wrapper}>{items}</ul>;
+    return (
+      <ul className={styles.wrapper} aria-label="cardForm">
+        {items}
+      </ul>
+    );
   };
 
   const items = form && renderItems(form);
 
-  return <div className={styles.cards}>{items}</div>;
+  return (
+    <div className={styles.cards} aria-label="cards">
+      {items}
+    </div>
+  );
 };

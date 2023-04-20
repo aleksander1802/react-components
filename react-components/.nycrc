@@ -1,0 +1,9 @@
+{
+  "report-dir": "./src/tests/e2e/coverage",
+  "include": ["src/**/*.{js,jsx,ts,tsx}"],
+  "exclude": ["tests/**/*.{js,jsx,ts,tsx}"],
+  "reporter": ["lcov", "text"],
+  "sourceMap": false,
+  "instrument": false,
+  "temp-dir": "./src/tests/e2e/coverage/.nyc_output"
+}

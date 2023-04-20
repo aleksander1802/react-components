@@ -59,6 +59,7 @@ export const AddCardForm = () => {
               type={'text'}
               placeholder={'Enter name'}
               aria-label="name"
+              data-testid="name"
               error={errors.name}
               {...register('name', {
                 required: {

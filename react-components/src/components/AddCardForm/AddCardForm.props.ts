@@ -6,7 +6,7 @@ export type SetDataState = {
 
 export type FormCard = {
   name: string;
-  date: string;
+  date: Date;
   eye: string;
   age: string;
   messengers: string | string[];
@@ -16,7 +16,7 @@ export type FormCard = {
 
 export type FormFields = {
   name: string;
-  date: string;
+  date: Date;
   eye: string;
   age: string;
   messengers: string | string[];

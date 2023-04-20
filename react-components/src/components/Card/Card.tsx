@@ -24,7 +24,7 @@ export const Card = ({ id, closeModal }: CardPropsAPI) => {
 
   const renderItems = (arr: ICard) => {
     return (
-      <div className={styles.card}>
+      <div className={styles.card} data-testid="cardModal">
         <Button
           appearance="primary"
           className={styles.close}
@@ -33,20 +33,20 @@ export const Card = ({ id, closeModal }: CardPropsAPI) => {
         >
           <img src={CloseIcon} className={styles.closeModal}></img>
         </Button>
-        <div className={styles.image}>
-          <img src={arr.urls.small} alt={arr.alt_description ?? arr.user.name} />
+        <div className={styles.image} aria-label="modalImage">
+          <img src={arr.urls.small} alt={arr.user.name} />
         </div>
-        <div className={styles.name}>
+        <div className={styles.name} aria-label="modalNickname">
           <span>Nickname:</span> <div className={styles.primary}>{arr.user.username}</div>
         </div>
-        <div>
+        <div aria-label="modalName">
           <span>Real name:</span> <div className={styles.primary}>{arr.user.name}</div>
         </div>
-        <div>
+        <div aria-label="modalAge">
           <span className={styles.age}>Total likes:</span>{' '}
           <div className={styles.primary}>{arr.user.total_likes}</div>
         </div>
-        <div>
+        <div aria-label="modalRelationship">
           <span>Looking for a relationship: </span>
           <span
             className={cn(styles.choice, {
@@ -57,14 +57,14 @@ export const Card = ({ id, closeModal }: CardPropsAPI) => {
             {arr.user.for_hire ? 'Yep' : 'Nope'}
           </span>
         </div>
-        <div>
+        <div aria-label="modalPhotos">
           <span>Total photos:</span> <div className={styles.primary}>{arr.user.total_photos}</div>
         </div>
-        <div>
+        <div aria-label="modalCollections">
           <span>Total collections:</span>{' '}
           <div className={styles.primary}>{arr.user.total_collections}</div>
         </div>
-        <div>
+        <div aria-label="modalCreate">
           <span>Profile created:</span>{' '}
           <span className={styles.primary}>
             {new Date(arr.created_at).toLocaleDateString('en-GB')}

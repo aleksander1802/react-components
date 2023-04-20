@@ -1,3 +1,5 @@
+import { Htag } from '../../components/Htag/Htag';
+import SkyrimIcon from './skyrim.svg';
 import styles from './About.module.css';
 
 const About = () => {
@@ -5,7 +7,8 @@ const About = () => {
     <>
       <div className={styles.about}>
         <div className={styles.first}>
-          <span>We know all about lorem</span>
+          <Htag tag="h1">We know all about lorem</Htag>
+          <img src={SkyrimIcon} alt="we know" />
         </div>
         <div className={styles.second}>
           Lorem ipsum dolor, sit amet consectetur adipisicing elit. Vitae natus, saepe error dolore
