@@ -130,7 +130,12 @@ describe('Checking everything ', () => {
     cy.get('[aria-label="spanMessenger"]').should('have.length', 2);
     cy.get('[aria-label="spanGender"]').should('have.text', 'Male');
 
-    cy.get('[aria-label="spanImage"]').should('have.attr', 'src');
+    cy.get('[aria-label="spanImage"]')
+      .should('have.attr', 'src')
+      .then((dataUrl) => {
+        cy.get('[aria-label="spanImage"]').should('have.attr', 'src', dataUrl);
+      });
+
     cy.get('[aria-label="spanImage"]').should('have.attr', 'alt').should('include', 'Alex Rud');
   });
 
