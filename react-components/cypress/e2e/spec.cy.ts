@@ -105,7 +105,7 @@ describe('Checking everything ', () => {
     cy.get('[data-testid=name-input]').contains('Required field.');
   });
 
-  it('should submit the form when all fields are filled in and and check the finished card', () => {
+  it('should submit the form when all fields are filled in and check the finished card', () => {
     cy.visit('/form');
 
     cy.get('[aria-label="name"]').type('Alex Rud');
@@ -118,24 +118,22 @@ describe('Checking everything ', () => {
     cy.get('[type=file]').selectFile('cypress/fixtures/test-image.jpg');
     cy.get('[type=submit]').click();
     cy.get('[data-testid="success-message"]').should('be.visible');
-
     cy.get('[aria-label="cards"]').should('be.visible');
 
-    cy.get('[aria-label="cardForm"]').should('have.length', 1);
+    cy.wait(3000);
 
+    cy.get('[aria-label="cardForm"]').should('have.length', 1);
     cy.get('[aria-label="spanName"]').should('have.text', 'Alex Rud');
     cy.get('[aria-label="spanBirthday"]').should('have.text', '01/01/1990');
     cy.get('[aria-label="spanAge"]').should('have.text', '30');
     cy.get('[aria-label="spanEyeColor"]').should('have.text', 'blue');
     cy.get('[aria-label="spanMessenger"]').should('have.length', 2);
     cy.get('[aria-label="spanGender"]').should('have.text', 'Male');
-
     cy.get('[aria-label="spanImage"]')
       .should('have.attr', 'src')
       .then((dataUrl) => {
         cy.get('[aria-label="spanImage"]').should('have.attr', 'src', dataUrl);
       });
-
     cy.get('[aria-label="spanImage"]').should('have.attr', 'alt').should('include', 'Alex Rud');
   });
 
