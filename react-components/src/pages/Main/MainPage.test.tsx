@@ -1,9 +1,11 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 
 import MainPage from './MainPage';
 import store from '../../store/store';
+import { BrowserRouter } from 'react-router-dom';
+import App from '../../App';
 describe('MainPage', () => {
   it('should render Cards component', () => {
     const mockCards = [
@@ -39,5 +41,20 @@ describe('MainPage', () => {
 
       expect(cardsItems.length).toEqual(mockCards.length);
     }, 2000);
+  });
+
+  test('renders Main page component when the / route is accessed', () => {
+    render(
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    );
+
+    const mainPageElement = screen.getByTestId('header-element');
+    setTimeout(() => {
+      expect(mainPageElement).toBeInTheDocument();
+    }, 3000);
   });
 });

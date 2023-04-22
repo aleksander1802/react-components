@@ -41,7 +41,7 @@ export const Header = ({ className }: HeaderProps) => {
       <NavLink to="/form" role="link">
         Create card
       </NavLink>
-      <span>{title}</span>
+      <span data-testid="header-element">{title}</span>
     </header>
   );
 };
