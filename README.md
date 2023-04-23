@@ -2,11 +2,13 @@
 
 ### Unit test:   
 
-```npm run test:vitest```  
+```  
+npm run test:vitest  
+```  
   
-### E2E test  
+### E2E test:  
 
 ```  
-"npm start"
-"npm run test:e2e"  
+npm start
+npm run test:e2e  
 ```
